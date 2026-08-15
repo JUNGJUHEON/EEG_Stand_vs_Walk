@@ -1,0 +1,49 @@
+device: mps
+
+===== EEGNet SvW =====
+    within S01: 44.3%
+    within S02: 50.0%
+    within S03: 46.4%
+    within S04: 46.8%
+    within S05: 59.0%
+    within S06: 61.0%
+    within S07: 55.0%
+    within S08: 48.0%
+    within S09: 61.0%
+    within S10: 46.0%
+    loso   S01: 48.5%  (train n=891)
+    loso   S02: 45.0%  (train n=888)
+    loso   S03: 48.5%  (train n=891)
+    loso   S04: 43.6%  (train n=894)
+    loso   S05: 49.0%  (train n=888)
+    loso   S06: 50.0%  (train n=888)
+    loso   S07: 63.0%  (train n=888)
+    loso   S08: 47.0%  (train n=888)
+    loso   S09: 49.0%  (train n=888)
+    loso   S10: 56.0%  (train n=888)
+  within 51.8%   loso+EA 50.0%   (240s)
+
+===== EEGNet 3cls =====
+    within S01: 30.1%
+    within S02: 32.0%
+    within S03: 58.5%
+    within S04: 35.2%
+    within S05: 44.3%
+    within S06: 62.7%
+    within S07: 50.0%
+    within S08: 35.3%
+    within S09: 39.3%
+    within S10: 34.0%
+    loso   S01: 37.0%  (train n=1338)
+    loso   S02: 40.0%  (train n=1334)
+    loso   S03: 46.9%  (train n=1337)
+    loso   S04: 37.3%  (train n=1342)
+    loso   S05: 43.6%  (train n=1335)
+    loso   S06: 42.0%  (train n=1334)
+    loso   S07: 35.3%  (train n=1334)
+    loso   S08: 40.0%  (train n=1334)
+    loso   S09: 33.3%  (train n=1334)
+    loso   S10: 38.0%  (train n=1334)
+  within 42.1%   loso+EA 39.4%   (377s)
+
+wrote results/deep_scores.csv

@@ -1,0 +1,39 @@
+[Parallel(n_jobs=6)]: Using backend LokyBackend with 6 concurrent workers.
+[final] cfg={'lo': 8.0, 'hi': 30.0, 'tmin': 0.5, 'tmax': 4.5, 'ref': 'none'}  10 subjects x 4 tasks x 19 pipes
+[Parallel(n_jobs=6)]: Done   6 tasks      | elapsed:  2.2min
+[Parallel(n_jobs=6)]: Done  38 out of  40 | elapsed: 16.2min remaining:   51.1s
+[Parallel(n_jobs=6)]: Done  40 out of  40 | elapsed: 16.5min finished
+
+[final] 988s
+
+mean k-fold accuracy across subjects:
+task             3cls   RvS   RvW   SvW
+pipe                                   
+fb_ts_lr         46.1  67.0  65.8  53.3
+crop_fb_ts_lr    44.9  66.3  65.0  53.2
+fbcsp_mibif_lda  44.8  64.3  64.4  53.5
+fgmdm            44.3  65.8  63.6  53.0
+acm_d5_10_ts_lr  44.3  64.4  65.3  52.0
+fbcsp_mibif_svm  44.2  62.6  63.5  54.0
+ts_svm           44.2  64.6  62.7  52.5
+fb_ts_lr_sel     44.1  62.1  63.5  53.3
+wcov4_ts_lr      44.1  65.1  63.4  53.6
+fbcsp_rf         44.0  64.7  65.1  54.9
+fb_logvar_lda    43.9  64.1  63.3  53.4
+acm_d5_ts_lr     43.7  63.9  64.9  51.3
+ts_lr            43.1  63.9  62.1  52.1
+crop_ts_lr       42.8  64.2  62.0  52.7
+wcov2_ts_lr      42.3  65.2  61.6  52.5
+csp_svm          42.2  62.3  61.7  52.3
+csp_lda          42.1  62.9  62.3  52.3
+mdm              41.6  60.6  61.3  51.6
+logvar_lda       40.5  60.8  60.5  52.1
+
+nested (unbiased) per task:
+  SvW    53.1 % ±  7.5 (range 43-70, chance 50, pooled 525/988, binomial p=0.026)
+  RvS    65.8 % ± 11.5 (range 48-88, chance 50, pooled 652/991, binomial p=8e-24)
+  RvW    64.5 % ±  9.8 (range 42-76, chance 50, pooled 638/989, binomial p=2.6e-20)
+  3cls   45.8 % ±  8.3 (range 35-64, chance 33, pooled 680/1484, binomial p=1.4e-23)
+
+best overall pipeline: fb_ts_lr
+figures in ~/Desktop/PlayGround/STEAM/PythonFiles/Claude/results

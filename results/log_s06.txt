@@ -1,0 +1,38 @@
+== (3) run x class balance for the multi-run subjects ==
+  S03 MI: {'Rest': 30, 'Stand': 30, 'Walk': 30}
+  S03 MI2: {'Rest': 20, 'Stand': 20, 'Walk': 20}
+  S06 MI: {'Rest': 40, 'Stand': 40, 'Walk': 40}
+  S06 MI2: {'Rest': 10, 'Stand': 10, 'Walk': 10}
+  S07 MI: {'Rest': 40, 'Stand': 40, 'Walk': 40}
+  S07 MI2: {'Rest': 10, 'Stand': 10, 'Walk': 10}
+
+== (1) label-permutation test, Stand vs Walk, 1000 perms ==
+  subject           acc  null mean  null p95       p  p_holm
+  S06      67.0%      49.9%     60.0%  0.0040   0.040  *
+  S09      64.0%      50.0%     60.0%  0.0110   0.099
+  S08      58.0%      50.2%     61.0%  0.1139   0.911
+  S04      57.3%      50.1%     60.6%  0.1409   0.986
+  S02      56.0%      49.9%     60.0%  0.1728   1.000
+  S05      55.0%      50.1%     60.0%  0.2318   1.000
+  S07      52.0%      49.7%     60.0%  0.3846   1.000
+  S01      50.5%      49.8%     59.9%  0.4835   1.000
+  S03      47.6%      49.9%     60.7%  0.6264   1.000
+  S10      47.0%      49.9%     60.0%  0.6993   1.000
+  -> 1/10 subjects individually significant after Holm correction for 10 tests
+
+== (2) is S06's lead specific to Stand vs Walk? ==
+  subject          SvW   RvS   RvW  3cls  maxStd(uV)  clip%
+  S06         1     1     2     1        1480    0.0
+  S09         2     5     6     2         447    0.0
+  S10         3     7     4     9        9539    0.6
+  S05         4     6     5     3       33346    1.1
+  S08         5     2     8     5        2106    0.0
+  S03         6     3     1     4       26282    3.0
+  S02         7    10     7     8       11262    0.9
+  S04         8     4     9    10        9873    0.4
+  S01         9     9    10     7       44395    3.6
+  S07        10     8     3     6        3299    0.0
+  Spearman(SvW nested acc, max_std_uv) = -0.52  p=0.128
+  Spearman(SvW nested acc, max_clip) = -0.32  p=0.369
+
+wrote results/fig_pty_permutation.png

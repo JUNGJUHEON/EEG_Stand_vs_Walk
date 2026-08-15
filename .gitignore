@@ -1,0 +1,11 @@
+# 원시 뇌파 및 전처리 캐시 — 인간 대상 데이터라 배포하지 않는다.
+data/
+cache/
+*.npz
+
+# 파이썬
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store

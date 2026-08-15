@@ -1,0 +1,38 @@
+
+===== SvW : trial curve =====
+  subject        n=20   n=30   n=40   n=60   n=80   n=100  n=120    asymptote   n@target
+  S01      51.5  43.5  50.5  50.5   nan   nan   nan     49.0%    unreachable
+  S02      53.5  48.0  51.5  46.0   nan   nan   nan     49.7%    unreachable
+  S03      52.0  50.5  50.5  47.0   nan   nan   nan     50.0%    unreachable
+  S04      49.5  43.8  49.5  52.6   nan   nan   nan    100.0%    527,927,427
+  S05      51.5  51.5  53.5  54.0   nan   nan   nan    100.0%    56,162,935,435
+  S06      58.5  67.0  64.0  69.5   nan   nan   nan     69.5%    unreachable
+  S07      45.5  48.0  52.0  53.5   nan   nan   nan     69.2%    unreachable
+  S08      55.5  53.0  58.0  55.0   nan   nan   nan     56.9%    unreachable
+  S09      61.5  51.5  55.0  60.5   nan   nan   nan     57.1%    unreachable
+  S10      49.5  47.0  50.5  49.5   nan   nan   nan     64.6%    unreachable
+  GROUP asymptote 82.7%   trials needed for 85%: unreachable with this montage — the fitted asymptote is below the target
+===== SvW : channel curve =====
+  k:          1     2     3     4     5     6     7     8
+  acc(%):  52.0  52.8  53.3  52.5  53.0  51.9  52.9  51.5
+  most-chosen first electrode: {'FC4': 9, 'CP3': 8, 'Cz': 8}
+
+===== 3cls : trial curve =====
+  subject        n=20   n=30   n=40   n=60   n=80   n=100  n=120    asymptote   n@target
+  S01       nan  41.6   nan  37.5   nan   nan   nan     39.3%    unreachable
+  S02       nan  37.5   nan  34.2   nan   nan   nan     36.4%    unreachable
+  S03       nan  42.9   nan  47.0   nan   nan   nan     51.9%    unreachable
+  S04       nan  41.0   nan  44.8   nan   nan   nan     41.9%    unreachable
+  S05       nan  39.1   nan  41.1   nan   nan   nan     46.7%    unreachable
+  S06       nan  56.6   nan  59.9   nan   nan   nan     66.9%    unreachable
+  S07       nan  39.1   nan  38.8   nan   nan   nan     50.2%    unreachable
+  S08       nan  46.7   nan  51.6   nan   nan   nan    100.0%    38,931
+  S09       nan  38.5   nan  50.0   nan   nan   nan    100.0%    419,741
+  S10       nan  38.5   nan  41.1   nan   nan   nan     41.6%    unreachable
+  GROUP asymptote 49.8%   trials needed for 85%: unreachable with this montage — the fitted asymptote is below the target
+===== 3cls : channel curve =====
+  k:          1     2     3     4     5     6     7     8
+  acc(%):  41.7  45.3  47.1  45.2  45.4  45.0  45.7  45.8
+  most-chosen first electrode: {'CP3': 9, 'CP4': 7, 'CPz': 7}
+
+figures in ~/Desktop/PlayGround/STEAM/PythonFiles/Claude/results

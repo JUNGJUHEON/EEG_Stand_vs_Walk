@@ -1,0 +1,151 @@
+subject,task,model,acc,n_feat_ch,n_band
+S01,SvW,A generic (current),0.5568421052631579,8,10
+S01,RvS,A generic (current),0.5973684210526315,8,10
+S01,RvW,A generic (current),0.41789473684210526,8,10
+S01,SvW,B + foot Laplacian,0.5989473684210526,4,10
+S01,RvS,B + foot Laplacian,0.5589473684210526,4,10
+S01,RvW,B + foot Laplacian,0.4278947368421052,4,10
+S01,SvW,C + individual SMR bands,0.5563157894736842,8,2
+S01,RvS,C + individual SMR bands,0.5878947368421052,8,2
+S01,RvW,C + individual SMR bands,0.4078947368421053,8,2
+S01,SvW,D full physio-constrained,0.5173684210526316,4,2
+S01,RvS,D full physio-constrained,0.5147368421052632,4,2
+S01,RvW,D full physio-constrained,0.4568421052631579,4,2
+S01,SvW,E WRONG physio (control),0.4947368421052632,4,2
+S01,RvS,E WRONG physio (control),0.5889473684210527,4,2
+S01,RvW,E WRONG physio (control),0.3452631578947368,4,2
+S02,SvW,A generic (current),0.48,8,10
+S02,RvS,A generic (current),0.52,8,10
+S02,RvW,A generic (current),0.55,8,10
+S02,SvW,B + foot Laplacian,0.48,4,10
+S02,RvS,B + foot Laplacian,0.4800000000000001,4,10
+S02,RvW,B + foot Laplacian,0.58,4,10
+S02,SvW,C + individual SMR bands,0.53,8,2
+S02,RvS,C + individual SMR bands,0.48,8,2
+S02,RvW,C + individual SMR bands,0.6,8,2
+S02,SvW,D full physio-constrained,0.48,4,2
+S02,RvS,D full physio-constrained,0.5700000000000001,4,2
+S02,RvW,D full physio-constrained,0.64,4,2
+S02,SvW,E WRONG physio (control),0.52,4,2
+S02,RvS,E WRONG physio (control),0.5900000000000001,4,2
+S02,RvW,E WRONG physio (control),0.5900000000000001,4,2
+S03,SvW,A generic (current),0.49684210526315786,8,10
+S03,RvS,A generic (current),0.7273684210526317,8,10
+S03,RvW,A generic (current),0.7547368421052632,8,10
+S03,SvW,B + foot Laplacian,0.5994736842105264,4,10
+S03,RvS,B + foot Laplacian,0.7878947368421054,4,10
+S03,RvW,B + foot Laplacian,0.8052631578947368,4,10
+S03,SvW,C + individual SMR bands,0.5057894736842105,8,2
+S03,RvS,C + individual SMR bands,0.7178947368421053,8,2
+S03,RvW,C + individual SMR bands,0.7036842105263158,8,2
+S03,SvW,D full physio-constrained,0.5773684210526315,4,2
+S03,RvS,D full physio-constrained,0.798421052631579,4,2
+S03,RvW,D full physio-constrained,0.7147368421052631,4,2
+S03,SvW,E WRONG physio (control),0.5147368421052632,4,2
+S03,RvS,E WRONG physio (control),0.7489473684210526,4,2
+S03,RvW,E WRONG physio (control),0.7352631578947368,4,2
+S04,SvW,A generic (current),0.5631578947368421,8,10
+S04,RvS,A generic (current),0.5005263157894737,8,10
+S04,RvW,A generic (current),0.6923976608187135,8,10
+S04,SvW,B + foot Laplacian,0.5538011695906433,4,10
+S04,RvS,B + foot Laplacian,0.5826315789473684,4,10
+S04,RvW,B + foot Laplacian,0.7134502923976609,4,10
+S04,SvW,C + individual SMR bands,0.5,8,2
+S04,RvS,C + individual SMR bands,0.521578947368421,8,2
+S04,RvW,C + individual SMR bands,0.6269005847953217,8,2
+S04,SvW,D full physio-constrained,0.44795321637426894,4,2
+S04,RvS,D full physio-constrained,0.6563157894736842,4,2
+S04,RvW,D full physio-constrained,0.6807017543859649,4,2
+S04,SvW,E WRONG physio (control),0.5327485380116959,4,2
+S04,RvS,E WRONG physio (control),0.5942105263157894,4,2
+S04,RvW,E WRONG physio (control),0.6485380116959064,4,2
+S05,SvW,A generic (current),0.55,8,10
+S05,RvS,A generic (current),0.6263157894736843,8,10
+S05,RvW,A generic (current),0.5863157894736842,8,10
+S05,SvW,B + foot Laplacian,0.6599999999999999,4,10
+S05,RvS,B + foot Laplacian,0.6363157894736842,4,10
+S05,RvW,B + foot Laplacian,0.7173684210526315,4,10
+S05,SvW,C + individual SMR bands,0.53,8,2
+S05,RvS,C + individual SMR bands,0.6857894736842105,8,2
+S05,RvW,C + individual SMR bands,0.6963157894736842,8,2
+S05,SvW,D full physio-constrained,0.5800000000000001,4,2
+S05,RvS,D full physio-constrained,0.5847368421052632,4,2
+S05,RvW,D full physio-constrained,0.6452631578947369,4,2
+S05,SvW,E WRONG physio (control),0.5399999999999999,4,2
+S05,RvS,E WRONG physio (control),0.4552631578947368,4,2
+S05,RvW,E WRONG physio (control),0.5557894736842106,4,2
+S06,SvW,A generic (current),0.65,8,10
+S06,RvS,A generic (current),0.79,8,10
+S06,RvW,A generic (current),0.69,8,10
+S06,SvW,B + foot Laplacian,0.65,4,10
+S06,RvS,B + foot Laplacian,0.8400000000000001,4,10
+S06,RvW,B + foot Laplacian,0.76,4,10
+S06,SvW,C + individual SMR bands,0.6599999999999999,8,2
+S06,RvS,C + individual SMR bands,0.89,8,2
+S06,RvW,C + individual SMR bands,0.73,8,2
+S06,SvW,D full physio-constrained,0.6599999999999999,4,2
+S06,RvS,D full physio-constrained,0.7899999999999999,4,2
+S06,RvW,D full physio-constrained,0.7100000000000001,4,2
+S06,SvW,E WRONG physio (control),0.6900000000000001,4,2
+S06,RvS,E WRONG physio (control),0.7799999999999999,4,2
+S06,RvW,E WRONG physio (control),0.6300000000000001,4,2
+S07,SvW,A generic (current),0.47000000000000003,8,10
+S07,RvS,A generic (current),0.5200000000000001,8,10
+S07,RvW,A generic (current),0.68,8,10
+S07,SvW,B + foot Laplacian,0.5,4,10
+S07,RvS,B + foot Laplacian,0.54,4,10
+S07,RvW,B + foot Laplacian,0.67,4,10
+S07,SvW,C + individual SMR bands,0.5000000000000001,8,2
+S07,RvS,C + individual SMR bands,0.5,8,2
+S07,RvW,C + individual SMR bands,0.6900000000000001,8,2
+S07,SvW,D full physio-constrained,0.58,4,2
+S07,RvS,D full physio-constrained,0.61,4,2
+S07,RvW,D full physio-constrained,0.6799999999999999,4,2
+S07,SvW,E WRONG physio (control),0.53,4,2
+S07,RvS,E WRONG physio (control),0.45,4,2
+S07,RvW,E WRONG physio (control),0.61,4,2
+S08,SvW,A generic (current),0.56,8,10
+S08,RvS,A generic (current),0.7200000000000001,8,10
+S08,RvW,A generic (current),0.6900000000000001,8,10
+S08,SvW,B + foot Laplacian,0.5599999999999999,4,10
+S08,RvS,B + foot Laplacian,0.7100000000000001,4,10
+S08,RvW,B + foot Laplacian,0.6199999999999999,4,10
+S08,SvW,C + individual SMR bands,0.4800000000000001,8,2
+S08,RvS,C + individual SMR bands,0.6699999999999999,8,2
+S08,RvW,C + individual SMR bands,0.64,8,2
+S08,SvW,D full physio-constrained,0.4,4,2
+S08,RvS,D full physio-constrained,0.73,4,2
+S08,RvW,D full physio-constrained,0.61,4,2
+S08,SvW,E WRONG physio (control),0.54,4,2
+S08,RvS,E WRONG physio (control),0.6,4,2
+S08,RvW,E WRONG physio (control),0.54,4,2
+S09,SvW,A generic (current),0.57,8,10
+S09,RvS,A generic (current),0.6599999999999999,8,10
+S09,RvW,A generic (current),0.6200000000000001,8,10
+S09,SvW,B + foot Laplacian,0.49000000000000005,4,10
+S09,RvS,B + foot Laplacian,0.5700000000000001,4,10
+S09,RvW,B + foot Laplacian,0.61,4,10
+S09,SvW,C + individual SMR bands,0.57,8,2
+S09,RvS,C + individual SMR bands,0.6599999999999999,8,2
+S09,RvW,C + individual SMR bands,0.56,8,2
+S09,SvW,D full physio-constrained,0.62,4,2
+S09,RvS,D full physio-constrained,0.6699999999999999,4,2
+S09,RvW,D full physio-constrained,0.55,4,2
+S09,SvW,E WRONG physio (control),0.6199999999999999,4,2
+S09,RvS,E WRONG physio (control),0.5599999999999999,4,2
+S09,RvW,E WRONG physio (control),0.59,4,2
+S10,SvW,A generic (current),0.53,8,10
+S10,RvS,A generic (current),0.6100000000000001,8,10
+S10,RvW,A generic (current),0.67,8,10
+S10,SvW,B + foot Laplacian,0.44000000000000006,4,10
+S10,RvS,B + foot Laplacian,0.5700000000000001,4,10
+S10,RvW,B + foot Laplacian,0.6199999999999999,4,10
+S10,SvW,C + individual SMR bands,0.5,8,2
+S10,RvS,C + individual SMR bands,0.51,8,2
+S10,RvW,C + individual SMR bands,0.6,8,2
+S10,SvW,D full physio-constrained,0.43999999999999995,4,2
+S10,RvS,D full physio-constrained,0.45,4,2
+S10,RvW,D full physio-constrained,0.5900000000000001,4,2
+S10,SvW,E WRONG physio (control),0.48,4,2
+S10,RvS,E WRONG physio (control),0.59,4,2
+S10,RvW,E WRONG physio (control),0.6599999999999999,4,2

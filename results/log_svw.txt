@@ -1,0 +1,60 @@
+[svw] 10 subjects x 15 windows x 14 band/ref x 4 pipes
+  8-30 Hz ref=none  n=   600     71s
+  8-30 Hz ref=car   n=  1200    142s
+  8-13 Hz ref=none  n=  1800    215s
+  8-13 Hz ref=car   n=  2400    284s
+  13-30 Hz ref=none  n=  3000    361s
+  13-30 Hz ref=car   n=  3600    431s
+  4-40 Hz ref=none  n=  4200    505s
+  4-40 Hz ref=car   n=  4800    576s
+  8-45 Hz ref=none  n=  5400    649s
+  8-45 Hz ref=car   n=  6000    719s
+  16-30 Hz ref=none  n=  6600    790s
+  16-30 Hz ref=car   n=  7200    862s
+  4-8 Hz ref=none  n=  7800    932s
+  4-8 Hz ref=car   n=  8400   1002s
+
+TOP 15 cells (mean over subjects) — EXPLORATION, biased:
+tmin  tmax  lo  hi  ref   pipe           
+3.5   5.0   4   40  none  acm_d5_10_ts_lr    58.2
+0.0   2.5   4   40  none  acm_d5_10_ts_lr    57.0
+1.0   2.5   4   40  none  acm_d5_10_ts_lr    56.9
+2.0   4.0   13  30  car   fgmdm              56.9
+      3.5   8   45  car   acm_d5_10_ts_lr    56.7
+1.0   2.5   13  30  none  acm_d5_10_ts_lr    56.6
+2.0   3.5   8   45  car   fgmdm              56.5
+                30  car   acm_d5_10_ts_lr    56.5
+3.5   5.0   4   40  none  csp_lda            56.4
+                    car   acm_d5_10_ts_lr    56.4
+                    none  fgmdm              56.4
+2.0   3.5   8   30  car   fgmdm              56.4
+      4.0   13  30  car   ts_lr              56.3
+      3.5   8   45  car   ts_lr              56.2
+0.0   2.5   8   13  car   ts_lr              55.9
+
+Window marginal (mean over band/ref/pipe/subject):
+tmin  tmax
+1.0   2.5     52.9
+2.0   3.5     52.7
+0.0   2.5     52.6
+0.5   4.5     52.5
+1.0   5.0     52.4
+0.0   5.0     52.4
+3.5   5.0     52.4
+3.0   5.0     52.3
+1.5   4.5     52.2
+2.0   4.0     52.2
+2.5   5.0     52.1
+0.0   2.0     52.1
+3.0   4.5     51.8
+2.0   5.0     51.8
+0.0   1.5     51.4
+
+Per-subject best cell (upper bound, NOT a valid estimate):
+Traceback (most recent call last):
+  File "~/Desktop/PlayGround/STEAM/PythonFiles/Claude/07_svw_focus.py", line 157, in <module>
+    main()
+  File "~/Desktop/PlayGround/STEAM/PythonFiles/Claude/07_svw_focus.py", line 122, in main
+    print(f"  {sid:14s} {r.acc*100:5.1f}%  {r.pipe:16s} "
+                                           ^^^^^^^^^^^^
+TypeError: unsupported format string passed to method.__format__

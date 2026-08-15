@@ -1,0 +1,13 @@
+check,band,value
+rsq_by_band,delta/theta 2-8,0.025537465978148415
+rsq_by_band,mu 8-13,0.07171452872866108
+rsq_by_band,beta 13-30,0.025924847423177803
+rsq_by_band,gamma 30-45,0.08255072417183694
+cross_run,8-30,0.6
+within_run,8-30,0.7625
+band_ablation,mu 8-13,0.6399999999999999
+band_ablation,beta 13-30,0.6700000000000002
+band_ablation,low beta 13-20,0.6799999999999999
+band_ablation,high beta 20-30,0.61
+band_ablation,gamma 30-45 (EMG),0.63
+band_ablation,delta/theta 2-8,0.6200000000000001

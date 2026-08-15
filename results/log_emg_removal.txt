@@ -1,0 +1,42 @@
+==============================================================================
+EMG REMOVAL — does cleaning change the conclusions?
+  raw      : pipeline as used throughout
+  regress  : 30-45 Hz nuisance direction projected out (in-fold)
+  cca      : BSS-CCA, two least autocorrelated components removed
+==============================================================================
+  S01      SvW  49.0 → reg  52.0 / cca  45.0
+  S02      SvW  51.4 → reg  50.4 / cca  46.5
+  S03      SvW  47.3 → reg  44.0 / cca  54.9
+  S04      SvW  46.5 → reg  45.5 / cca  46.4
+  S05      SvW  54.8 → reg  51.7 / cca  44.3
+  S06      SvW  66.0 → reg  61.0 / cca  47.0
+  S07      SvW  57.2 → reg  56.2 / cca  49.0
+  S08      SvW  49.0 → reg  48.0 / cca  50.0
+  S09      SvW  54.0 → reg  53.0 / cca  45.0
+  S10      SvW  34.3 → reg  46.4 / cca  42.6
+
+==============================================================================
+GROUP RESULT  (paired t-test vs raw, n = 10)
+==============================================================================
+
+  SvW   raw  50.9 %
+    regress   50.8 %   Δ -0.12   t=-0.08  p=0.9375
+    cca       47.1 %   Δ -3.88   t=-1.46  p=0.1796
+    topo ratio  1.13 → 1.03   t=-0.81  p=0.4396
+
+  RvW   raw  62.9 %
+    regress   62.8 %   Δ -0.10   t=-0.08  p=0.9380
+    cca       53.8 %   Δ -9.08   t=-7.47  p=0.0000
+    topo ratio  1.79 → 1.25   t=-2.53  p=0.0322
+
+  RvS   raw  62.9 %
+    regress   61.4 %   Δ -1.57   t=-0.83  p=0.4274
+    cca       53.6 %   Δ -9.29   t=-2.21  p=0.0549
+    topo ratio  1.50 → 1.18   t=-1.49  p=0.1696
+
+==============================================================================
+PARTICIPANT P06 (the one Section III-E rejects as muscle)
+  Stand vs Walk :  raw 66.0 %  →  regress 61.0 %  →  cca 47.0 %
+  prediction if that 67 % was muscle: it should FALL
+
+wrote results/fig_emg_removal.png

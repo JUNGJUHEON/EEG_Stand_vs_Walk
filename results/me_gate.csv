@@ -1,0 +1,11 @@
+subject,ok,retention,counts
+S01,True,1.0,"{np.int64(0): 50, np.int64(1): 50, np.int64(2): 50}"
+S02,True,1.0,"{np.int64(0): 50, np.int64(1): 50, np.int64(2): 50}"
+S03,True,1.0,"{np.int64(0): 50, np.int64(1): 50, np.int64(2): 50}"
+S04,False,0.66,"{np.int64(0): 33, np.int64(1): 50, np.int64(2): 50}"
+S05,True,0.9787234042553191,"{np.int64(0): 47, np.int64(1): 47, np.int64(2): 46}"
+S06,True,1.0,"{np.int64(0): 50, np.int64(1): 50, np.int64(2): 50}"
+S07,True,0.98,"{np.int64(0): 49, np.int64(1): 50, np.int64(2): 50}"
+S08,True,0.98,"{np.int64(0): 49, np.int64(1): 50, np.int64(2): 50}"
+S09,True,1.0,"{np.int64(0): 50, np.int64(1): 50, np.int64(2): 50}"
+S10,True,0.9836065573770492,"{np.int64(0): 61, np.int64(1): 60, np.int64(2): 60}"

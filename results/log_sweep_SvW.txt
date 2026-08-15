@@ -1,0 +1,43 @@
+[sweep] task=SvW  10 subjects x 90 configs x 4 pipes = 3600 evals
+  band 8-30 ref=car   rows=   360  elapsed=    85s
+/opt/anaconda3/envs/spyder_env/lib/python3.12/site-packages/joblib/externals/loky/backend/resource_tra  band 4-40 ref=none  rows=  1440  elapsed=   326s
+  band 8-13 ref=car   rows=  1800  elapsed=   414s
+  band 8-13 ref=none  rows=  2160  elapsed=   503s
+  band 13-30 ref=car   rows=  2520  elapsed=   584s
+  band 13-30 ref=none  rows=  2880  elapsed=   671s
+  band 4-30 ref=car   rows=  3240  elapsed=   753s
+  band 4-30 ref=none  rows=  3600  elapsed=   838s
+
+[sweep] wrote results/sweep_SvW.csv  (3600 rows, 838s)
+
+Top 20 configs (mean over subjects):
+ tmin  tmax  lo  hi  ref            pipe      acc
+  1.0   5.0   8  30  car acm_d5_10_ts_lr 0.654981
+  1.0   4.0   8  30 none acm_d5_10_ts_lr 0.654600
+  1.0   4.0   8  30  car acm_d5_10_ts_lr 0.653827
+  0.5   4.5   8  30 none           fgmdm 0.653337
+  1.0   4.0   8  30 none           fgmdm 0.651768
+  1.0   5.0   8  30 none           fgmdm 0.651616
+  0.5   4.5   4  30 none acm_d5_10_ts_lr 0.650063
+  0.5   4.5   8  13 none           fgmdm 0.649116
+  0.0   5.0   4  40 none acm_d5_10_ts_lr 0.648779
+ -1.0   5.0   8  13 none           fgmdm 0.648471
+  0.0   5.0   4  30 none acm_d5_10_ts_lr 0.647074
+  1.0   5.0   4  30  car acm_d5_10_ts_lr 0.646975
+  0.5   4.5   4  40 none acm_d5_10_ts_lr 0.646916
+ -1.0   5.0   8  30 none           fgmdm 0.646263
+  1.0   5.0   8  30 none           ts_lr 0.646042
+ -1.0   5.0   8  30  car           fgmdm 0.645658
+  1.0   5.0   4  30 none acm_d5_10_ts_lr 0.643291
+  0.5   4.5   8  30 none acm_d5_10_ts_lr 0.643063
+  1.0   5.0   4  40 none acm_d5_10_ts_lr 0.642968
+  0.0   4.0   4  30 none acm_d5_10_ts_lr 0.642905
+
+Cue-only control window (-2.0, 0.0):
+ tmin  tmax  lo  hi  ref            pipe      acc
+ -2.0   0.0   4  30 none acm_d5_10_ts_lr 0.559319
+ -2.0   0.0   4  40 none acm_d5_10_ts_lr 0.553367
+ -2.0   0.0   8  30  car acm_d5_10_ts_lr 0.548538
+ -2.0   0.0   4  30 none           fgmdm 0.542563
+ -2.0   0.0   4  40 none           fgmdm 0.540964
+.warn(f"resource_tracker: {name}: {e!r}")

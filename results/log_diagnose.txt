@@ -1,0 +1,32 @@
+== quality ==
+             std_uv  clip_pct
+subject                      
+S01  44395.2       3.6
+S02  11262.0       0.9
+S03  26281.6       3.0
+S04   9872.5       0.4
+S05  33345.6       1.1
+S06   1479.5       0.0
+S07   3299.3       0.0
+S08   2106.5       0.0
+S09    447.3       0.0
+S10   9539.1       0.6
+
+== ERD/ERS ==
+  S01 done
+  S02 done
+  S03 done
+  S04 done
+  S05 done
+  S06 done
+  S07 done
+  S08 done
+  S09 done
+  S10 done
+
+== discriminability ==
+[rsq] Stand vs Walk: grand-mean peak |r²| = 0.0341 at C3 13 Hz
+[rsq] Rest vs Stand: grand-mean peak |r²| = 0.0617 at CPz 11 Hz
+[rsq] Rest vs Walk: grand-mean peak |r²| = 0.0736 at FC4 11 Hz
+
+figures in ~/Desktop/PlayGround/STEAM/PythonFiles/Claude/results

@@ -1,0 +1,80 @@
+== (A) per-subject permutation, 1000 perms, pipeline=fb_ts_lr ==
+
+  --- RvS (chance 50 %) : 5/10 significant after Holm, 6/10 uncorrected ---
+    S06      88.0%  null95=61.0%  p=0.0010  p_holm=0.010 *
+    S09      76.0%  null95=61.0%  p=0.0010  p_holm=0.010 *
+    S08      74.0%  null95=60.0%  p=0.0010  p_holm=0.010 *
+    S05      71.8%  null95=59.8%  p=0.0020  p_holm=0.014 *
+    S03      68.6%  null95=59.5%  p=0.0020  p_holm=0.014 *
+    S01      64.0%  null95=60.9%  p=0.0150  p_holm=0.075  .
+    S04      58.4%  null95=61.4%  p=0.1169  p_holm=0.468
+    S02      53.0%  null95=60.0%  p=0.3836  p_holm=1.000
+    S10      50.0%  null95=60.0%  p=0.4635  p_holm=1.000
+    S07      49.0%  null95=60.0%  p=0.6064  p_holm=1.000
+
+  --- RvW (chance 50 %) : 8/10 significant after Holm, 8/10 uncorrected ---
+    S03      73.4%  null95=62.0%  p=0.0010  p_holm=0.010 *
+    S06      71.0%  null95=61.0%  p=0.0010  p_holm=0.010 *
+    S04      70.1%  null95=60.6%  p=0.0010  p_holm=0.010 *
+    S07      70.0%  null95=61.0%  p=0.0010  p_holm=0.010 *
+    S08      68.0%  null95=60.0%  p=0.0050  p_holm=0.025 *
+    S05      67.6%  null95=59.6%  p=0.0020  p_holm=0.012 *
+    S09      65.0%  null95=61.0%  p=0.0110  p_holm=0.044 *
+    S10      64.0%  null95=60.0%  p=0.0150  p_holm=0.045 *
+    S02      59.0%  null95=61.0%  p=0.0899  p_holm=0.180
+    S01      43.8%  null95=60.3%  p=0.8252  p_holm=0.825
+
+  --- SvW (chance 50 %) : 1/10 significant after Holm, 2/10 uncorrected ---
+    S06      67.0%  null95=60.0%  p=0.0040  p_holm=0.040 *
+    S09      64.0%  null95=60.0%  p=0.0110  p_holm=0.099  .
+    S08      58.0%  null95=61.0%  p=0.1139  p_holm=0.911
+    S04      57.3%  null95=60.6%  p=0.1409  p_holm=0.986
+    S02      56.0%  null95=60.0%  p=0.1728  p_holm=1.000
+    S05      55.0%  null95=60.0%  p=0.2318  p_holm=1.000
+    S07      52.0%  null95=60.0%  p=0.3846  p_holm=1.000
+    S01      50.5%  null95=59.9%  p=0.4835  p_holm=1.000
+    S03      47.6%  null95=60.7%  p=0.6264  p_holm=1.000
+    S10      47.0%  null95=60.0%  p=0.6993  p_holm=1.000
+
+  --- 3cls (chance 33 %) : 8/10 significant after Holm, 8/10 uncorrected ---
+    S06      61.3%  null95=41.3%  p=0.0010  p_holm=0.010 *
+    S09      51.3%  null95=40.7%  p=0.0010  p_holm=0.010 *
+    S03      49.7%  null95=40.9%  p=0.0020  p_holm=0.014 *
+    S05      49.0%  null95=40.9%  p=0.0010  p_holm=0.010 *
+    S08      47.3%  null95=41.3%  p=0.0030  p_holm=0.018 *
+    S07      46.0%  null95=41.3%  p=0.0060  p_holm=0.030 *
+    S04      45.1%  null95=42.2%  p=0.0160  p_holm=0.048 *
+    S10      44.0%  null95=40.7%  p=0.0110  p_holm=0.044 *
+    S02      38.0%  null95=41.3%  p=0.1808  p_holm=0.362
+    S01      33.6%  null95=40.4%  p=0.4865  p_holm=0.487
+
+  summary (* = Holm-significant, . = uncorrected only):
+      sig  raw
+task          
+3cls    8    8
+RvS     5    6
+RvW     8    8
+SvW     1    2
+
+== (B) Riemannian vs CSP/FBCSP, corrected resampled t-test ==
+  task   A                vs B                   diff   p_corr  p_naive
+  RvS    fb_ts_lr         vs fbcsp_mibif_lda    +2.7pt    0.454   0.1776
+  RvS    fb_ts_lr         vs csp_lda            +4.1pt    0.247   0.0458
+  RvS    ts_lr            vs csp_lda            +1.0pt    0.782   0.6069
+  RvS    fb_ts_lr         vs fb_logvar_lda      +2.8pt    0.541   0.2645
+  RvW    fb_ts_lr         vs fbcsp_mibif_lda    +1.4pt    0.450   0.1735
+  RvW    fb_ts_lr         vs csp_lda            +3.5pt    0.327   0.0842
+  RvW    ts_lr            vs csp_lda            -0.2pt    0.940   0.8888
+  RvW    fb_ts_lr         vs fb_logvar_lda      +2.4pt    0.573   0.3026
+  SvW    fb_ts_lr         vs fbcsp_mibif_lda    -0.2pt    0.933   0.8748
+  SvW    fb_ts_lr         vs csp_lda            +0.9pt    0.834   0.6951
+  SvW    ts_lr            vs csp_lda            -0.2pt    0.953   0.9117
+  SvW    fb_ts_lr         vs fb_logvar_lda      -0.1pt    0.974   0.9505
+  3cls   fb_ts_lr         vs fbcsp_mibif_lda    +1.3pt    0.565   0.2924
+  3cls   fb_ts_lr         vs csp_lda            +4.0pt    0.286   0.0627
+  3cls   ts_lr            vs csp_lda            +1.0pt    0.702   0.4794
+  3cls   fb_ts_lr         vs fb_logvar_lda      +2.2pt    0.516   0.2376
+
+  note: p_naive is the UNCORRECTED paired t-test, shown only to make the size of the anticonservatism visible. Quote p_corr.
+
+wrote results/fig_subject_significance.png
