@@ -1,0 +1,14 @@
+participant,run,n_raw_samples,n_raw_markers,n_raw_task_markers,n_raw_clipped_samples,n_sample_difference,n_marker_difference,channel_match,code_match,sample_index_match,clip_mask_match,nominal_fs_match
+S01,MI,655856,606,150,23843,0,0,True,True,True,True,True
+S02,MI,543848,606,150,4893,0,0,True,True,True,True,True
+S03,MI,516520,489,121,23988,0,0,True,True,True,True,True
+S03,MI2,217016,243,60,2610,0,0,True,True,True,True,True
+S04,MI,445992,605,150,1806,0,0,True,True,True,True,True
+S05,MI,629424,606,150,33213,0,0,True,True,True,True,True
+S06,MI,657544,605,150,0,0,0,True,True,True,True,True
+S06,MI2,81280,122,30,0,0,0,True,True,True,True,True
+S07,MI,475728,606,150,0,0,0,True,True,True,True,True
+S07,MI2,78232,122,30,0,0,0,True,True,True,True,True
+S08,MI,533360,605,150,0,0,0,True,True,True,True,True
+S09,MI,513152,606,150,0,0,0,True,True,True,True,True
+S10,MI,550544,606,150,3050,0,0,True,True,True,True,True

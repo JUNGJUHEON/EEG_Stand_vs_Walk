@@ -1,0 +1,75 @@
+{
+  "analysis_type": "post_hoc_exploratory",
+  "question": "time and baseline source of Rest/MI label information",
+  "reference": "car",
+  "input_cache_sha256": {
+    "S01_MI.npz": "cdafa29c95aeb88cbd2700461d9f11f4aa25f6999e077829246eae0f20b99d76",
+    "S02_MI.npz": "a80430c19b8bc7eb387dd110324ec95c44b8c28104d36f9a63c2a0857a939b39",
+    "S03_MI.npz": "fc0260fc4a8266bfa1a6384d28c543ecad2ef4c7c153ce50eec340baf5900edf",
+    "S03_MI2.npz": "2df52411fb5f64ba7a8d705dcffce2bc6551cde5e01fc6d852f84676ffa5b3e2",
+    "S04_MI.npz": "697ceefcfa27da7e28f141832b5b6a993123a2582577921958c7921e1392f44f",
+    "S05_MI.npz": "b09b4efb727dde94b67bd6cfdbc5cbfdce9caf662bedc18bc95b397dc7fee7af",
+    "S06_MI.npz": "1832a0c9a50464e765f14c456587497f09cb808c44632907da72bf132adf3623",
+    "S06_MI2.npz": "5eb9c6c719acf1780011616e81274fd76fee4b202145ad8a308f0af60ccd66f5",
+    "S07_MI.npz": "fda778c7433159931b1632338a2628e5ad5b06e0ebee0863536e8e02de970d11",
+    "S07_MI2.npz": "b8130d21b0b10c54831ab88ed1e0b234cc59ae985d67237fa10747eb3b17178b",
+    "S08_MI.npz": "8d94d9d9b3c9513e905e5172a75ad8dff848e74e5b98739a463ba13d7b8d4f49",
+    "S09_MI.npz": "ddc3a494abb07e8d6aa92f2977973a2f05f6067f8c1f28c3ead462297ad817cb",
+    "S10_MI.npz": "7c4d9107d82cd80bf8e8ec3f4b72a85149961e3625629a3f1c036e443e312b35"
+  },
+  "filters": {
+    "mu": [
+      8,
+      13
+    ],
+    "beta": [
+      13,
+      30
+    ]
+  },
+  "windows_seconds_from_task_marker": {
+    "base1": [
+      -4.5,
+      -3.5
+    ],
+    "base2": [
+      -3.5,
+      -2.5
+    ],
+    "cue1": [
+      -2,
+      -1
+    ],
+    "cue2": [
+      -1,
+      0
+    ],
+    "task1": [
+      0,
+      1
+    ],
+    "task2": [
+      1,
+      2
+    ],
+    "task3": [
+      2,
+      3
+    ],
+    "task4": [
+      3,
+      4
+    ],
+    "task5": [
+      4,
+      5
+    ]
+  },
+  "model": "StandardScaler plus logistic regression C=0.3, fitted inside folds",
+  "evaluation": "five repetitions of stratified fivefold; one contiguous fivefold",
+  "limitations": [
+    "visual cues and instructions differ by condition",
+    "no direct EOG, EMG, gaze or task compliance",
+    "same data used to formulate questions"
+  ]
+}

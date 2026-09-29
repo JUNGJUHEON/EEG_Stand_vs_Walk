@@ -1,0 +1,13 @@
+{
+  "signal": "stationary zero-mean Gaussian noise, no task effect",
+  "seed": 20260928,
+  "n_simulated_trials": 500,
+  "mu_frequencies_hz": [
+    8.5,
+    10.0,
+    11.5,
+    13.0
+  ],
+  "original_mean_instantaneous_log_ratio_db": -2.322881578429805,
+  "symmetric_log_mean_power_ratio_db": 0.10821645811064604
+}
