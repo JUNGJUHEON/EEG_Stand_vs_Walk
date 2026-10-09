@@ -1,6 +1,6 @@
 # Standing and walking motor imagery with 8-channel EEG
 
-Ten participants performed 50 retained trials each of rest, standing-up imagery, and walking imagery. Each trial had 3 s of fixation, a 2 s condition-specific visual cue, and a 5 s task period. EEG was recorded at 256 Hz from eight channels around the sensorimotor scalp. This repository contains the original exploratory analysis and a later, explicitly **post-hoc reanalysis** of the same recordings.
+Ten participants performed 50 retained trials each of rest, standing-up imagery, and walking imagery. Each trial had 3 s of fixation, a 2 s condition-specific visual cue, and a 5 s task period. EEG was recorded at 256 Hz from eight channels around the sensorimotor scalp. This repository contains the original exploratory analysis and a later, explicitly post-hoc reanalysis of the same recordings.
 
 The question was whether the recorded EEG could distinguish standing from walking imagery. In the evaluated models, that distinction was weak. Rest was more readily distinguished from either imagery condition, but the experiment cannot assign that difference to motor-imagery-specific cortical activity.
 
