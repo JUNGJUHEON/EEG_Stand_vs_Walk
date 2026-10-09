@@ -1,0 +1,2 @@
+evaluation,model,n,mean,sd,ci_low,ci_high
+LOSO,nested_group_selection,10,0.48,0.05537749241945382,0.44038532836142674,0.5196146716385732

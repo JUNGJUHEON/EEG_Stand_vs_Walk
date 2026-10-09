@@ -1,0 +1,11 @@
+subject,selected,inner_accuracy
+S01,ear_power_rbf,0.5233333333333334
+S02,ear_dynamic_lr0.01,0.5266666666666667
+S03,ear_dynamic_lr0.01,0.5399999999999999
+S04,ear_dynamic_lr0.01,0.5166666666666667
+S05,ear_cov_ts,0.5155555555555557
+S06,ear_power_rbf,0.52
+S07,ear_dynamic_lr0.01,0.5233333333333333
+S08,ear_power_rbf,0.5111111111111112
+S09,ear_power_rbf,0.5133333333333333
+S10,ear_combined_lr0.01,0.5255555555555556
