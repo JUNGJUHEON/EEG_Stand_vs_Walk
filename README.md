@@ -2,13 +2,33 @@
 
 Ten participants performed 50 retained trials each of rest, standing-up imagery, and walking imagery. Each trial had 3 s of fixation, a 2 s condition-specific visual cue, and a 5 s task period. EEG was recorded at 256 Hz from eight channels around the sensorimotor scalp. This repository contains the original exploratory analysis and a later, explicitly post-hoc reanalysis of the same recordings.
 
-The question was whether the recorded EEG could distinguish standing from walking imagery. In the evaluated models, that distinction was weak. Rest was more readily distinguished from either imagery condition, but the experiment cannot assign that difference to motor-imagery-specific cortical activity.
+The question was whether the recorded EEG could distinguish standing from walking imagery. **Rest-versus-imagery condition labels were partly predictable:** the original saved nested-CV scores averaged 65.8% for Rest–Stand and 64.5% for Rest–Walk. Stand–Walk prediction was weaker in the selection-separated evaluations. These are condition-label results, not proof that the classifier decoded motor-imagery-specific cortical activity.
+
+**October 12 historical-score audit:** participant-specific best test scores across 7 normalizations × 18 MD2DEEGNet settings averaged **82.0% Rest–Stand, 79.0% Rest–Walk, and 78.5% Stand–Walk**. All three are descriptive, **test-selected maxima**, not independent generalization estimates. The three contrasts are compared under the same selection rule, with selection-separated evaluations reported in a separate table. No new neural-network training was performed for this three-contrast audit.
 
 **October 9 recheck, published October 10:** a bounded eight-channel temporal/covariance search found weak Stand–Walk label information, but not stable high-accuracy decoding or a verified motor-specific source. The model-selection procedure averaged **52.1%** across five random splits, versus **51.6%** with purged time blocks and **48.0%** in uncalibrated leave-one-person-out evaluation. A post-hoc maximum-over-candidates test gave **p=.015**, with a narrower interpretation explained in section 4. These are new analyses of the same recordings, not a new sample or a replacement for the original saved-score audit.
 
 [한국어 상세 보고서](results/reanalysis/stand_walk_2026_10_09/REPORT_ko.md) · [Protocol and hypotheses](results/reanalysis/stand_walk_2026_10_09/protocol_and_hypotheses.md) · [Source-claim verification](results/reanalysis/stand_walk_2026_10_09/source_verification.md)
 
 ## 1. Classification results
+
+### Historical MD2DEEGNet exploration: all three binary contrasts
+
+For each participant and contrast, the audit takes the largest recorded fused-head test accuracy from **126 candidates**, then averages those ten maxima. It is a mean, but **not** the mean of all 126 candidates and **not** one common configuration evaluated across people. Exactly 210 saved binary log files and 3,780 configuration rows were checked (10 people × 3 contrasts × 7 × 18).
+
+| Contrast | Mean of participant-specific best-of-126 test scores | Participant range | Selection used test scores? |
+|---|---:|---:|---|
+| Rest vs Stand | **82.0%** | 70.0–100.0% | Yes |
+| Rest vs Walk | **79.0%** | 65.0–90.0% | Yes |
+| Stand vs Walk | **78.5%** | 70.0–90.0% | Yes |
+
+These high scores are present in the historical logs; they are not a new independently validated result. Selecting settings on the test set makes that set part of the search, so its maximum can be optimistic for new trials. The current original source explicitly selects by fused **test** accuracy. The exact source version, preprocessing and random-number state that generated the historical folder have not been fully reconstructed. The audit checks the recorded scores, not that historical execution provenance or a fully rerun 126-candidate search.
+
+The three maxima do not show a clear Rest–Walk versus Stand–Walk separation. Differences from the evaluations below also involve models, preprocessing, trial selection and splits; the entire numerical gap cannot be attributed to test selection alone.
+
+[Participant-specific selected scores](results/reanalysis/md2d_grid_2026_10_12/historical_selected.csv) · [All anonymized candidate scores](results/reanalysis/md2d_grid_2026_10_12/historical_grid_anonymized.csv) · [Aggregation and scope](results/reanalysis/md2d_grid_2026_10_12/REPORT_ko.md)
+
+### Selection-separated evaluations
 
 The original nested cross-validation results below were **recalculated from saved scores**, not obtained by rerunning the entire original model search. The interval is across the ten participant scores and does not account for analysis choices made on these data.
 
@@ -24,6 +44,8 @@ The original nested cross-validation results below were **recalculated from save
 A separate fixed analysis used 8–30 Hz log power from all eight channels, a fixed logistic regression, and repeated within-participant five-fold cross-validation. Its mean balanced accuracy was **60.6%** for Rest–Stand, **59.5%** for Rest–Walk, and **51.6%** for Stand–Walk. These values are from a different feature and evaluation procedure, so they are a qualitative check of the original ordering rather than a replication of the nested estimates. The Stand–Walk results do not establish equivalence to chance or an upper limit on what another measurement or model could recover.
 
 [Fixed-model participant scores](results/reanalysis/fixed_model_scores.csv)
+
+**Reading these results together:** the selection-separated procedures support partial Rest-versus-imagery label prediction and weak Stand–Walk prediction under the evaluated conditions. The historical maximum table documents the broader search, but does not establish robust 79–82% decoding for any contrast. Neither table identifies the physiological source or proves an information ceiling.
 
 ## 2. Does each condition show an EEG change?
 
@@ -113,7 +135,7 @@ Additional LOSO sensitivities reached 49.5% with per-trial covariance trace norm
 
 ## 5. Interpretation and limits
 
-Condition labels changed together with the visual cue and the requested mental task. No simultaneous EOG, EMG, gaze, or trial-level imagery-compliance measure is available. Cortical motor imagery, visual attention, other mental state changes, and ocular or muscle contributions therefore cannot be separated causally in these recordings. The data support a **condition-associated EEG power difference** and partial Rest-versus-imagery label prediction; they do not establish why the physiological signal arose or why Stand–Walk prediction was weak.
+Condition labels changed together with the visual cue and the requested mental task. No simultaneous EOG, EMG, gaze, or trial-level imagery-compliance measure is available. Cortical motor imagery, visual attention, other mental state changes, and ocular or muscle contributions therefore cannot be separated causally in these recordings. The data support a **condition-associated EEG power difference** and partial Rest-versus-imagery label prediction; they do not establish why the physiological signal arose or why Stand–Walk prediction was weak in selection-separated evaluations. “No physiological signal” and “verified pure MI decoding” would both overstate what was learned.
 
 The original ERD figures in the top-level `results/` directory should not be used as evidence for sustained 8–13 Hz suppression. The estimator used there gave **−2.32 dB for a stationary simulated signal** with no task change. A comparison using matched 1 s power estimates instead found a later 8–13 Hz increase, most consistently in Walk. Likewise, exploratory channel curves, model sweeps, execution controls, and artifact-removal attempts do not establish a device-wide information ceiling, a peripheral cause, or absence of neural differences.
 
@@ -122,6 +144,18 @@ This reanalysis was developed after inspecting the original results. The partici
 [Stationary-signal estimator check](results/reanalysis/erd_estimator_stationary_null.json)
 
 ## Reproduce the reanalysis
+
+### October 12 historical grid-log audit
+
+The [audit script](code/reanalysis/audit_md2d_grid.py) uses only the Python standard library and does not load EEG arrays. Authorized historical logs and cache filenames are required to reproduce the pseudonym mapping; neither is distributed. The public anonymized candidate CSV is sufficient to recalculate all three participant-specific maxima and means. This audit does not retrain networks or reproduce the nested-CV analyses.
+
+```bash
+python -m unittest discover -s code/reanalysis -p test_md2d_grid_audit.py
+python code/reanalysis/audit_md2d_grid.py \
+  --logs /authorized/path/to/historical_grid_logs \
+  --cache /authorized/path/to/continuous_cache \
+  --out cache/md2d_grid_audit
+```
 
 ### October 9 code and publication scope
 

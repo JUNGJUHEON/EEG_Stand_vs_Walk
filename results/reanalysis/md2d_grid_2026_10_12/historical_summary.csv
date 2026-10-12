@@ -1,0 +1,4 @@
+contrast,participants,norm_count,configs_per_norm,rows,mean_participant_test_max,min_participant_test_max,max_participant_test_max,mean_participant_CT_test_max
+R_vs_S,10,7,18,1260,0.82,0.7,1.0,0.715
+R_vs_W,10,7,18,1260,0.79,0.65,0.9,0.66
+S_vs_W,10,7,18,1260,0.785,0.7,0.9,0.72
