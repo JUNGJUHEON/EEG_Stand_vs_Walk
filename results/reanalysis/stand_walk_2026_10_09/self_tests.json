@@ -1,7 +1,0 @@
-{
-  "variable_switch_detected": true,
-  "phase_free_repetition_detected": true,
-  "purged_block_splits_disjoint": true,
-  "tangent_test_transform_does_not_refit": true,
-  "simulation_scope": "feature sensitivity, not sensitivity to real imagined steps"
-}

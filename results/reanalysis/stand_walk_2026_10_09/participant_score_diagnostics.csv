@@ -1,3 +1,0 @@
-evaluation,n,shapiro_w,shapiro_p,interpretation
-random,10,0.9229973839506765,0.38263392861093315,"Normality not rejected (W = 0.923, p = 0.383); this does not verify assumptions."
-contiguous,10,0.9654481918555491,0.8457368331105943,"Normality not rejected (W = 0.965, p = 0.846); this does not verify assumptions."

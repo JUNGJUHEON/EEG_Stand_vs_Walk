@@ -1,5 +1,0 @@
-evaluation,comparison,difference,ci_low,ci_high,scope
-random,winsorized_cov_minus_uncapped_cov,-0.0040000000000000036,-0.009001817684001302,0.0010018176840012952,post-hoc descriptive matched sensitivity
-random,power_all8_minus_power_midline2,-0.015999999999999997,-0.06782704694905047,0.03582704694905048,post-hoc descriptive matched sensitivity
-contiguous,winsorized_cov_minus_uncapped_cov,-0.0030000000000000027,-0.01057813270737048,0.004578132707370475,post-hoc descriptive matched sensitivity
-contiguous,power_all8_minus_power_midline2,-0.003000000000000019,-0.04319177035534822,0.03719177035534819,post-hoc descriptive matched sensitivity

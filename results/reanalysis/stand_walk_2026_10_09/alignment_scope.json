@@ -1,7 +1,0 @@
-{
-  "stage": "post-hoc additional sensitivity, after initial LOSO result",
-  "trace_normalized": "trial-specific trace scaling; no test-person cohort statistics",
-  "session_whitened": "Euclidean covariance whitening fitted on 150 unlabeled trials per person, including held-out person",
-  "hyperparameter_selection": "C selected by 3-fold participant-exclusive CV within outer training subjects",
-  "interpretation": "descriptive transfer evaluation, no best-view winner accuracy or MI-source inference"
-}
