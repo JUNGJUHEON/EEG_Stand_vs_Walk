@@ -1,10 +1,120 @@
 # Standing and walking motor imagery with 8-channel EEG
 
-Ten participants performed 50 retained trials each of rest, standing-up imagery, and walking imagery. Each trial had 3 s of fixation, a 2 s condition-specific visual cue, and a 5 s task period. EEG was recorded at 256 Hz from eight channels around the sensorimotor scalp. This repository contains the original exploratory analysis and a later, explicitly **post-hoc reanalysis** of the same recordings.
+## Fixed Filterbank CNN: Participant-Level Revalidation
 
-The question was whether the recorded EEG could distinguish standing from walking imagery. In the evaluated models, that distinction was weak. Rest was more readily distinguished from either imagery condition, but the experiment cannot assign that difference to motor-imagery-specific cortical activity.
+This model-focused report presents **freshly trained, fixed-setting Filterbank
+CNN results on the original ten participants' recordings**. Rest-Stand and
+Rest-Walk are separate binary comparisons. Stand means imagery of standing up,
+not actual movement or static standing. The original objective was to distinguish
+standing-up from walking imagery; all three pairwise results remain visible.
 
-## 1. Classification results
+The model is the supplied TSCNN `FilterbankTripleShallowCNN`, adapted to a
+two-class output and a fixed evaluation protocol. Codex assisted code adaptation,
+execution, checking, and documentation. The recorded real-data training took
+place on October 13; this October 14 update packages those completed results.
+It is not a new dataset or a newly invented model.
+
+### Main Observation
+
+**Some participants showed repeatable Rest-versus-imagery prediction across
+three training seeds on the same held-out trials.** For example:
+
+- **S03:** Rest-Stand **85-90%** and Rest-Walk **70-75%**.
+- **S06:** Rest-Stand and Rest-Walk each **80-85%**.
+
+These are the complete three-seed ranges for two illustrative participants,
+identified after inspecting the results. They are **not a cohort-wide 70-90%
+accuracy**. Other participants performed less well or varied with training seed.
+Changing the seed repeats training on the same split; it does not add new test
+trials, sessions, or people. High accuracy does not establish MI-specific cortex.
+
+### All Participants and Training Seeds
+
+Each cell lists accuracy (%) for **training seeds 42 / 43 / 44**. The split seed
+stays 42, with train 60 / validation 20 / test 20 original trials for each binary
+comparison. The two test classes have ten trials each; one error changes accuracy
+by five percentage points. No best seed was selected.
+
+| Participant | Rest-Stand | Rest-Walk | Stand-Walk |
+|---|---:|---:|---:|
+| S01 | 40 / 75 / 50 | 45 / 45 / 45 | 55 / 50 / 55 |
+| S02 | 50 / 55 / 30 | 50 / 50 / 60 | 50 / 50 / 50 |
+| S03 | 90 / 90 / 85 | 75 / 75 / 70 | 50 / 50 / 40 |
+| S04 | 85 / 90 / 55 | 75 / 75 / 75 | 50 / 45 / 65 |
+| S05 | 45 / 55 / 55 | 50 / 55 / 60 | 50 / 55 / 45 |
+| S06 | 80 / 85 / 85 | 85 / 80 / 80 | 65 / 65 / 65 |
+| S07 | 50 / 50 / 35 | 60 / 60 / 50 | 50 / 50 / 55 |
+| S08 | 50 / 50 / 65 | 75 / 50 / 55 | 45 / 65 / 50 |
+| S09 | 65 / 55 / 60 | 60 / 60 / 60 | 70 / 65 / 75 |
+| S10 | 50 / 50 / 55 | 50 / 55 / 50 | 55 / 55 / 55 |
+
+![Fixed Filterbank accuracy for all participants and three training seeds](results/reanalysis/filterbank_fixed_2026_10_14/seed_sensitivity.png)
+
+[All 90 recorded scores and correct counts](results/reanalysis/filterbank_fixed_2026_10_14/participant_scores.csv)
+· [Within-participant seed summaries](results/reanalysis/filterbank_fixed_2026_10_14/participant_summary.csv)
+· [Ten-participant summaries by seed](results/reanalysis/filterbank_fixed_2026_10_14/group_summary.csv)
+
+### Model and Evaluation
+
+Eight channels (FC3, FC4, C3, C4, Cz, CP3, CP4, CPz) were recorded at 256 Hz,
+with fifty retained trials per condition. Each trial had 3 s fixation, a 2 s
+condition-specific cue, and a 5 s task. Model inputs cover task 0-5 s inclusive
+(1,281 samples), following continuous 1-40 Hz filtering, 60 Hz notch, and onset
+sample subtraction. No MD2D T/CT/C input normalization was applied.
+
+The five fixed filterbank bands and magnitude STFT feed three CNN branches.
+One setting was held fixed: dropout=0.3, AdamW lr=0.001/weight decay=0.0001,
+StepLR step=10/gamma=0.5, batch size=32, at most 100 epochs, patience=5. Weights were selected by
+**validation loss**, saved, and then used for frozen test prediction. Test
+answers were not used for fitting, checkpoint selection, or choosing a seed.
+
+This adapted protocol differs from the supplied three-class grid-search script.
+It does not claim full reproduction of that original search. The model is
+highlighted after a broader set of reruns, not selected and validated on a new
+independent dataset. Other evaluated model profiles did not all perform similarly.
+
+[Detailed methods and differences from the original](results/reanalysis/filterbank_fixed_2026_10_14/METHODS.md)
+· [Model and fixed runner](code/reanalysis/filterbank_fixed/)
+· [Verification scope](results/reanalysis/filterbank_fixed_2026_10_14/VERIFICATION.md)
+
+### What the Scores Do and Do Not Mean
+
+The results support participant-specific condition prediction in this recording
+set, with substantial between-person and training-seed variability. They do
+not demonstrate stable 70%+ accuracy across all ten participants, prediction
+for a new person/day, or online BCI performance. They also do not establish
+that the predictive signal originated specifically from motor imagery rather
+than visual cues, attention, ocular/muscle activity, or a mixture.
+
+The September 29 signal reanalysis is retained below as **separate evidence**.
+Its power changes do not causally explain the CNN's decisions, and its CV
+scores must not be substituted for this model's fixed-split scores.
+
+### Reproduce the Model-Side Evaluation
+
+With authorized matching preprocessed trial arrays, use an isolated Python 3.12
+environment and run from the repository root:
+
+```bash
+python -m pip install -r code/reanalysis/filterbank_fixed/requirements.txt
+python -m unittest discover -s code/reanalysis/filterbank_fixed -p 'test_*.py'
+python code/reanalysis/filterbank_fixed/run.py \
+  --data /authorized/path/to/preprocessed_trials \
+  --out cache/filterbank_new_run --device mps
+```
+
+Raw XDF extraction, private retained-trial mappings, cached EEG, checkpoints,
+and trial-level predictions are not distributed. The public runner starts at
+the documented preprocessed-input boundary; exact cross-platform results are
+not guaranteed. The tests use synthetic inputs and published aggregate scores.
+
+## September 29 Reanalysis: Separate Signal Evidence
+
+The following preserves the earlier evidence-bounded reanalysis. Its original
+overview is also available at the [September 29 commit](https://github.com/JUNGJUHEON/EEG_Stand_vs_Walk/blob/4a4ac8885d31377b32fb342fe9084cd3ea0f04d3/README.md).
+It uses the same cohort but different features and evaluation procedures.
+
+### 1. Earlier Classification Results
 
 The original nested cross-validation results below were **recalculated from saved scores**, not obtained by rerunning the entire original model search. The interval is across the ten participant scores and does not account for analysis choices made on these data.
 
@@ -21,7 +131,7 @@ A separate fixed analysis used 8–30 Hz log power from all eight channels, a fi
 
 [Fixed-model participant scores](results/reanalysis/fixed_model_scores.csv)
 
-## 2. Does each condition show an EEG change?
+### 2. Does Each Condition Show an EEG Change?
 
 We compared equal-length 1 s power estimates during fixation with the task bins from 1–5 s after task onset. These are participant means for **8–13 Hz at Cz and CPz**:
 
@@ -44,7 +154,7 @@ The walking condition has the more consistent rest-exceeding increase. Its direc
 
 [Time-course summaries](results/reanalysis/within_class_group.csv) · [Selected 1–5 s summaries](results/reanalysis/within_class_late_group.csv)
 
-## 3. What separates Rest from the imagery conditions?
+### 3. What Separates Rest from the Imagery Conditions?
 
 For each participant, a fixed classifier used the 8–13 and 13–30 Hz log power of eight channels. The table gives mean **balanced accuracy** with contiguous five-fold validation. The first four windows each cover 2 s; the pooled 1–5 s window covers 4 s and therefore averages more data. Chance is 50%.
 
@@ -61,7 +171,7 @@ In the pooled 1–5 s window, beta-only features reached 61.3%/60.5% (earlobe/CA
 
 [Stage-by-stage results, earlobe](results/reanalysis/rest_mi_stage_group.csv) · [Stage-by-stage results, CAR](results/reanalysis/rest_mi_stage_car_group.csv) · [Power-pattern decomposition](results/reanalysis/physiology_pattern_group.csv)
 
-## 4. Interpretation and limits
+### 4. Interpretation and Limits
 
 Condition labels changed together with the visual cue and the requested mental task. No simultaneous EOG, EMG, gaze, or trial-level imagery-compliance measure is available. Cortical motor imagery, visual attention, other mental state changes, and ocular or muscle contributions therefore cannot be separated causally in these recordings. The data support a **condition-associated EEG power difference** and partial Rest-versus-imagery label prediction; they do not establish why the physiological signal arose or why Stand–Walk prediction was weak.
 
@@ -71,7 +181,7 @@ This reanalysis was developed after inspecting the original results. The partici
 
 [Stationary-signal estimator check](results/reanalysis/erd_estimator_stationary_null.json)
 
-## Reproduce the reanalysis
+### Reproduce the September 29 Reanalysis
 
 The new scripts are in `code/reanalysis/`; their selected anonymized outputs are in `results/reanalysis/`. The original scripts and outputs remain in the top-level `code/` and `results/` directories as a record of the exploratory work. Interpret older figures and logs using the revised limits above.
 

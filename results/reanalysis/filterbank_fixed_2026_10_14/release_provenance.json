@@ -1,0 +1,60 @@
+{
+  "release_date": "2026-10-14",
+  "recorded_training_date": "2026-10-13",
+  "analysis": "post_hoc_model_specific_revalidation",
+  "real_data_refits_in_release": 0,
+  "n_participants": 10,
+  "n_contrasts": 3,
+  "n_training_seeds": 3,
+  "n_recorded_fits": 90,
+  "split_seed": 42,
+  "training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "original_trial_split": [
+    60,
+    20,
+    20
+  ],
+  "test_trials_per_class": 10,
+  "recorded_device": "Apple MPS",
+  "torch_threads": 2,
+  "original_model_filename": "TSCNN_3CLS_new_trigger_file_v4_Startified_k_fold.py",
+  "original_model_source_sha256": "8c27b3766cf03e09f1923f584cf272e75dabaeb222b70af780fba842ae97b28b",
+  "local_core_execution_sha256": "3879c7f117124a7bb090fe30c54810bb41eb826617733a60cc9bb118ed191cb8",
+  "local_seed_execution_snapshot_sha256": "00a031cdc5fba7765a06e294e4fa0e4f7399321dec185e03846542fa6ca3a19d",
+  "aggregate_source_sha256": "701e2cfadfd8c314c24980a491f25774503ddbb5e0b8344147397839842fb7e3",
+  "recorded_python": "3.12.4",
+  "recorded_packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "scikit-learn": "1.4.2",
+    "mne": "1.10.2",
+    "pyxdf": "1.16.8",
+    "pandas": "2.2.2",
+    "matplotlib": "3.8.4",
+    "joblib": "1.4.2",
+    "threadpoolctl": "2.2.0",
+    "tqdm": "4.66.4",
+    "torch": "2.5.1"
+  },
+  "public_file_sha256": {
+    "README.md": "f99010bdee6d0470ee192d3aabcf946e97366453af8aecaf511ae1a57aa456dc",
+    ".gitignore": "d7cd4f555d7de78ac077566f350ea1ad6cd2667f808caab16e434e044b41a77b",
+    "code/reanalysis/filterbank_fixed/model.py": "ae6ba0ccc555cbc14db10d090175c412d2a1359f4e07d9fee68e0fbeb9722ab3",
+    "code/reanalysis/filterbank_fixed/requirements.txt": "631e19a884cacdb2b073c3e629852d91264c1755fa4b10567b27f8e04e54aca4",
+    "code/reanalysis/filterbank_fixed/run.py": "704b1a2a47250268edbe7fdba72d39ac26a0ce94b923ddb23713293cad35c145",
+    "code/reanalysis/filterbank_fixed/summarize.py": "a7b9e694b9c3815f73fb2c46b82d07970a58741c7bac39c7f7bf4d5fb24e269d",
+    "code/reanalysis/filterbank_fixed/test_filterbank.py": "e24ae0ecacfad20538e9e63eecf1492842e54651db439a651ece15b2223f487f",
+    "results/reanalysis/filterbank_fixed_2026_10_14/METHODS.md": "7549953b666845c962e3dff1b871837ea61fa7c5699cf35ea570909038c17855",
+    "results/reanalysis/filterbank_fixed_2026_10_14/VERIFICATION.md": "9bb619c462ad768a1e2144810750f60b1a31d835bf277b7828b092270dd9682e",
+    "results/reanalysis/filterbank_fixed_2026_10_14/group_summary.csv": "3073fd755f19ecb5a4d59d3271a4865314f37cb6dcbbfdbf07124f551ba4a069",
+    "results/reanalysis/filterbank_fixed_2026_10_14/participant_scores.csv": "9bdcf74f921f3604acc38f1aec76f7605d0aae363a2edce14d67e12244772999",
+    "results/reanalysis/filterbank_fixed_2026_10_14/participant_summary.csv": "21db161ceb9e26c0d6ec139b3cb7aec627c2b81d187bb139dbd4adcbe0b0bd72",
+    "results/reanalysis/filterbank_fixed_2026_10_14/seed_sensitivity.png": "30cb65ab2e5898a64575531bc8f45c8f632f749bf00d206e9a0bff2eb1eed14e"
+  },
+  "omitted": "Raw recordings, private paths, participant keys, raw input hashes, trial-level features/predictions, weights",
+  "reproduction_scope": "Model-side portable extraction; requires authorized matching preprocessed inputs"
+}
