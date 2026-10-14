@@ -89,11 +89,13 @@ predictions are not distributed. Exact cross-platform scores are not guaranteed.
 The model was supplied with the project; Codex assisted adaptation, execution,
 checking, and documentation.
 
-## 2. EEG Power Differences in dB
+## 2. EEG Power Differences and Feature Diagnostics
 
-Classification asks whether labels can be predicted. This second analysis
-asks **how the recorded power changes within each condition and how those
-changes differ between conditions**, without using a classifier.
+The Filterbank CNN asks whether labels can be predicted. This second topic
+examines **how recorded power changes within and between conditions**, then
+uses separate fixed linear classifiers to characterize condition information
+across **time, frequency bands, and channel patterns**. The dB measurements
+themselves do not use a classifier.
 
 ### Measurement
 
@@ -159,6 +161,108 @@ confirmatory significance tests.
 | [Power calculation](code/reanalysis/within_class_checks.py)
 | [Task-window aggregation](code/reanalysis/within_class_late_summary.py)
 
+### Time, Frequency Band, and Spatial Pattern
+
+These auxiliary analyses ask **where condition information appears in the
+recorded features**. They are not an explanation of the CNN's internal
+decisions or replacement estimates of its accuracy. All values below are
+**mean balanced accuracy (%) across ten participants**, with 50% as the
+chance reference. Balanced accuracy averages recall for the two labels.
+
+Each probe uses a fixed logistic regression with C=0.3. Feature standardization
+and classifier fitting occur only within the training fold. The probes use
+their own cross-validation folds across retained trials, **not the CNN's
+fixed twenty-trial test set**, and are not independent confirmation of its
+scores. The values are taken from the saved aggregate tables linked below.
+
+#### Time: When Is Condition Information Present?
+
+Eight-channel 8-13 and 13-30 Hz log power is compared across stages, using
+five contiguous held-out trial blocks within each participant. The fixation,
+cue, early-task, and late-task stages each average two matched 1 s estimates.
+The pooled task 1-5 s feature averages four. Task-minus-fixation subtracts
+each trial's own fixation log power before classification.
+
+| Contrast | Reference | Fixation -4.5 to -2.5 s | Cue -2 to 0 s | Task 0-2 s | Task 3-5 s | Task 1-5 s | Task 1-5 s minus fixation |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Rest-Stand | Earlobe | 46.8 | 52.3 | 57.5 | 60.8 | 62.5 | 56.5 |
+| Rest-Stand | CAR | 48.4 | 51.8 | 60.0 | 59.1 | 63.4 | 58.2 |
+| Rest-Walk | Earlobe | 49.7 | 55.0 | 59.4 | 55.8 | 59.1 | 56.5 |
+| Rest-Walk | CAR | 48.6 | 51.1 | 60.1 | 57.4 | 62.8 | 61.0 |
+
+Before-cue group means were close to 50%; task features were more predictive
+under these probes. Equal-duration early and late task windows do **not** show
+a consistent late advantage across contrasts and references. The pooled 4 s
+window averages more data, so its higher scores cannot be called a late-only
+effect. Subtracting fixation still leaves some predictive information,
+especially for Rest-Walk under CAR, but does not exclude delayed cue effects
+or ocular/muscle contributions.
+
+[Stage results, earlobe](results/reanalysis/rest_mi_stage_group.csv)
+| [Stage results, CAR](results/reanalysis/rest_mi_stage_car_group.csv)
+| [Participant scores, earlobe](results/reanalysis/rest_mi_stage_participant.csv)
+| [Participant scores, CAR](results/reanalysis/rest_mi_stage_car_participant.csv)
+| [Stage feature and evaluation code](code/reanalysis/rest_mi_stage_diagnostics.py)
+
+#### Frequency Band: Which Band Carries Condition Information?
+
+Using the same task 1-5 s windows and contiguous-fold evaluation, the probes
+are fitted separately to the eight channel powers in each band:
+
+| Contrast | Reference | 8-13 Hz only | 13-30 Hz only |
+|---|---|---:|---:|
+| Rest-Stand | Earlobe | 57.0 | 61.3 |
+| Rest-Stand | CAR | 57.7 | 60.5 |
+| Rest-Walk | Earlobe | 61.0 | 58.4 |
+| Rest-Walk | CAR | 60.7 | 57.0 |
+
+The beta-band probe was more predictive for Rest-Stand, while the 8-13 Hz
+probe was more predictive for Rest-Walk, in both references. These are
+descriptions of label information in band-power features, **not estimates of
+each band's physiological contribution** or proof of a motor-cortical source.
+The source tables and calculation code are the same as for the time probes.
+
+#### Spatial Pattern: Overall Power or Relative Channel Distribution?
+
+A separate decomposition uses task **0.5-4.5 s** power with the earlobe
+reference. For each trial and band, the eight-channel mean of log power gives
+the global level; subtracting that mean from each channel's log power gives the relative
+spatial pattern. Both bands are retained. This channel-pattern transformation
+is not CAR rereferencing: it operates on log-power features, not time-domain
+voltages.
+
+Fixed, class-balanced logistic probes use five repetitions of stratified
+five-fold cross-validation. **Pooled imagery combines Stand and Walk into
+one label** (100 imagery trials versus 50 Rest trials). It is an auxiliary
+binary contrast for feature characterization, not one of the three primary
+Filterbank comparisons.
+
+| Feature set | Rest vs pooled imagery | Stand-Walk |
+|---|---:|---:|
+| Global band levels | 59.7 | 51.5 |
+| Relative channel pattern | 61.6 | 50.6 |
+| Both combined | 63.2 | 50.7 |
+
+Both global levels and relative channel patterns carry some information for
+Rest versus pooled imagery in this evaluation. Stand-Walk group means remain
+close to 50% for all three feature sets; this is not proof of equivalence to chance
+or an upper limit on another model. The feature sets are related transformations
+of the same powers, not independent physiological sources. Neither this
+decomposition nor the band probes identify which features the CNN used.
+Different windows, power estimates, and validation folds also prevent a direct
+ranking of these scores against the time/band probes or the CNN.
+
+[Feature-decomposition group scores](results/reanalysis/physiology_pattern_group.csv)
+| [Participant scores](results/reanalysis/physiology_pattern_participant.csv)
+| [Feature-decomposition code](code/reanalysis/physiology_pattern_ablation.py)
+| [Cross-validation helper](code/reanalysis/contrast_logic_checks.py)
+| [Task-power feature extraction](code/reanalysis/reanalyse_cached_eeg.py)
+
+All probes are exploratory comparisons of the same recordings. Multiple
+windows and feature sets were inspected without confirmatory significance
+tests. Continuous offline filtering and within-recording splits do not remove
+all temporal dependence or establish new-session performance.
+
 ### Interpretation
 
 The clearest group pattern is an **8-13 Hz increase in Walk relative to Rest**,
@@ -174,6 +278,8 @@ activity, and imagery performance cannot be separated without the missing
 EOG, EMG, gaze, and trial-level compliance measurements.
 
 The dB summaries use task 1-5 s and all retained condition trials; the CNN uses
-task 0-5 s and a held-out classification split. The two analyses address
-different questions. The power differences do **not** establish which
-features the CNN used or why a particular participant was classified well.
+task 0-5 s and a held-out classification split. The linear probes use separately
+specified windows and cross-validation folds. The power summaries and probes
+describe differences and predictive features in the recordings; they do **not**
+establish which features the CNN used or why a particular participant was
+classified well.

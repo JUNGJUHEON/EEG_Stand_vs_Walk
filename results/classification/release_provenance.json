@@ -6,7 +6,7 @@
   "exploratory_same_cohort": true,
   "topics": [
     "three_binary_classifiers",
-    "fixation_relative_power_differences_db"
+    "eeg_power_differences_and_feature_diagnostics"
   ],
   "n_participants": 10,
   "n_contrasts": 3,
@@ -58,6 +58,24 @@
     "aggregation": "Mean log power ratio within each participant, then mean across ten participants",
     "window_selected_after_timecourse_inspection": true
   },
+  "auxiliary_probes": {
+    "status": "Existing exploratory within-recording cross-validation results; not new fits",
+    "temporal_and_band_model": "Training-fold StandardScaler plus logistic regression C=0.3",
+    "temporal_and_band_evaluation": "Contiguous five-fold; average balanced accuracy across ten participants",
+    "temporal_and_band_sources": [
+      "rest_mi_stage_group.csv",
+      "rest_mi_stage_car_group.csv"
+    ],
+    "spatial_task_seconds": [
+      0.5,
+      4.5
+    ],
+    "spatial_reference": "earlobe",
+    "spatial_model": "Training-fold StandardScaler plus class-balanced logistic regression C=0.3",
+    "spatial_evaluation": "Five repetitions of stratified five-fold; average balanced accuracy across ten participants",
+    "spatial_source": "physiology_pattern_group.csv",
+    "scope": "Separate evaluation from the Filterbank fixed split; no inference of CNN feature use or physiological source"
+  },
   "original_model_filename": "TSCNN_3CLS_new_trigger_file_v4_Startified_k_fold.py",
   "original_model_source_sha256": "8c27b3766cf03e09f1923f584cf272e75dabaeb222b70af780fba842ae97b28b",
   "local_core_execution_sha256": "3879c7f117124a7bb090fe30c54810bb41eb826617733a60cc9bb118ed191cb8",
@@ -78,7 +96,7 @@
     "torch": "2.5.1"
   },
   "public_file_sha256": {
-    "README.md": "9a9b7dbe9389dde912684d105c83ec012db2ebecf9c94e20c78c1b5a30ef6ac7",
+    "README.md": "b822ef0cc69b99561ed728363deefae45184b34e4ed6893dc7061b021294ef66",
     ".gitignore": "d7cd4f555d7de78ac077566f350ea1ad6cd2667f808caab16e434e044b41a77b",
     "code/classification/model.py": "ae6ba0ccc555cbc14db10d090175c412d2a1359f4e07d9fee68e0fbeb9722ab3",
     "code/classification/requirements.txt": "631e19a884cacdb2b073c3e629852d91264c1755fa4b10567b27f8e04e54aca4",
@@ -99,7 +117,17 @@
     "results/reanalysis/within_class_group.csv": "c00e8a9f87ca24bb7b126c1522223ff7f2a3e389dff9d405d86f1b7e95ef2369",
     "results/reanalysis/within_class_late_participant.csv": "b3ea11a8acb9f93bc9fb1e762b0c75f293ce9d0fac31b53d54ffb329111fcc06",
     "results/reanalysis/within_class_late_group.csv": "fc1e980af4c0b344a6c0f5c360e0f0a62f9b16ad13e5d1c096c6df86cafed973",
-    "results/reanalysis/within_class_timecourse.png": "c3e186ef13080e0b4ba6ac66639e30f6c3f13d4b5287ad57a6826f059b3a3f6b"
+    "results/reanalysis/within_class_timecourse.png": "c3e186ef13080e0b4ba6ac66639e30f6c3f13d4b5287ad57a6826f059b3a3f6b",
+    "code/reanalysis/rest_mi_stage_diagnostics.py": "dabbe3e208dfedbdf75c2c7f5a00e8468225684571c18dca0aa21b0c7b74c6d3",
+    "code/reanalysis/physiology_pattern_ablation.py": "d137888bdda650fc098fdc5eb2080444f34254704f7ca76cee06b80d7b111b44",
+    "code/reanalysis/contrast_logic_checks.py": "33475f0bae143cb2d19e8e867cba1bd06096c9abb6dcc1ff19b74b611805be4e",
+    "code/reanalysis/reanalyse_cached_eeg.py": "2f9b95bde1bb0efcc9d4e452fc35910bd51cd0b1f6fa7c048151b7698134c932",
+    "results/reanalysis/rest_mi_stage_participant.csv": "b83a8d1a1b367c3bdf9f4c95f7d4e953f45dc0f84832c26a28243004d9486cbb",
+    "results/reanalysis/rest_mi_stage_group.csv": "e18fe25775d16852d87ddd00e2863062cec51742d64e44bf0fb3af44a4723181",
+    "results/reanalysis/rest_mi_stage_car_participant.csv": "8bba28d8fd7e2e063755a743664f4939d9679f3075cbbd6bf363f4443f9c0f46",
+    "results/reanalysis/rest_mi_stage_car_group.csv": "9e8b389cb0b94bce660ece90ed3008db27f64f2c240b6f28c802b0f8249ae969",
+    "results/reanalysis/physiology_pattern_participant.csv": "b0f2b465762ee7359ba410fd44b623ffa8b57cbb297171d45b616a742faeefaf",
+    "results/reanalysis/physiology_pattern_group.csv": "f4bc36c6db0a6e252c53d43b56b63a21204cc34c8b28b22dda0043f9e46d3716"
   },
   "omitted": "Raw recordings, private paths, participant keys, raw input hashes, trial-level features/predictions, weights",
   "reproduction_scope": "Model-side portable extraction; requires authorized matching preprocessed inputs"
