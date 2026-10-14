@@ -59,14 +59,11 @@ All ninety participant/pair/seed scores are included. No best seed is selected.
 Each accuracy counts twenty test trials, so one trial is five percentage
 points. Class balance makes ordinary and balanced accuracy equal here.
 
-The supplied original source specifies a three-class, 32-configuration five-fold search
-and a final 72/8/20 split with validation-accuracy stopping. This revalidation
-used one setting from that grid, a binary output, common 60/20/20 splits,
-validation-loss stopping, and explicit best-weight restoration. It did not
-rerun that entire original pipeline. The initial comparison also evaluated a
-different Native binary v4 profile, whose seed 42 means were 43.5/51.5/48.0%
-for Rest-Stand/Rest-Walk/Stand-Walk. The Filterbank profile is highlighted here
-after inspecting the wider reruns; this is not an unbiased estimate of a
+This profile uses a binary output, one fixed setting, common 60/20/20 splits,
+validation-loss stopping, and explicit best-weight restoration. It is a
+model-side adaptation, not a reproduction of the supplied source's full
+search procedure. The Filterbank profile is highlighted after inspecting
+broader model comparisons; its results are not an unbiased estimate of a
 procedure that selects it over other models.
 
 ## Result files
@@ -84,7 +81,7 @@ procedure that selects it over other models.
 
 ## Reproduction boundary
 
-`code/reanalysis/filterbank_fixed/run.py` is a portable extraction of the
+`code/classification/run.py` is a portable extraction of the
 fixed model/evaluation path. It accepts authorized, already-preprocessed
 `S01.npz` through `S10.npz`, each with `X=(150,8,1281)` and integer
 `y=(150,)`, using class IDs0=Rest,1=Stand,2=Walk in retained recording order.
@@ -109,9 +106,9 @@ alter their values.
 Run from the repository root in an isolated Python 3.12 environment:
 
 ```bash
-python -m pip install -r code/reanalysis/filterbank_fixed/requirements.txt
-python -m unittest discover -s code/reanalysis/filterbank_fixed -p 'test_*.py'
-python code/reanalysis/filterbank_fixed/run.py \
+python -m pip install -r code/classification/requirements.txt
+python -m unittest discover -s code/classification -p 'test_*.py'
+python code/classification/run.py \
   --data /authorized/path/to/preprocessed_trials \
   --out cache/filterbank_new_run --device mps
 ```
@@ -131,9 +128,9 @@ diagnosis nor evidence that the classifier decoded MI-specific cortex.
 
 Condition-specific cues, attention, ocular/muscle activity, and imagery
 performance cannot be uniquely separated without the missing reference and
-compliance measurements. The September 29 signal reanalysis remains separate:
-its fixation-relative 1-5 s summaries are not the current CNN's 0-5 s features or
-a causal explanation of its decisions.
+compliance measurements. The fixation-relative 1-5 s power summaries address
+a separate question: they are not the CNN's 0-5 s features or a causal
+explanation of its decisions.
 
 Codex assisted code adaptation, execution, checking, and documentation. The
 data/model were user-provided. Automated tests and independent AI review are

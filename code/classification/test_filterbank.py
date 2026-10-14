@@ -10,8 +10,8 @@ from model import feature_arrays, make_model
 from run import predict, seed_all, split_indices, tensors, train_model, validate_input
 from summarize import read_scores, summarize, participant_table
 
-ROOT = Path(__file__).resolve().parents[3]
-RESULTS = ROOT / "results/reanalysis/filterbank_fixed_2026_10_14"
+ROOT = Path(__file__).resolve().parents[2]
+RESULTS = ROOT / "results/classification"
 
 
 class FilterbankTests(unittest.TestCase):
