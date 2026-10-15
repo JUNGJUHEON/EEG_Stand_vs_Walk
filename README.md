@@ -2,9 +2,12 @@
 
 This project examines two questions: **can EEG distinguish the condition
 labels, and what power differences are visible in the recorded signals?**
-Ten participants contributed fifty retained trials per condition: Rest,
-standing-up imagery (Stand), and walking imagery (Walk). Stand and Walk refer
-to requested mental tasks, not actual movements.
+Ten participants contributed recordings of Rest, standing-up imagery (Stand),
+and walking imagery (Walk). Recording-level selection retained fifty trials
+per condition. The classification analysis additionally rejected epochs,
+leaving 94-100 trials per binary comparison; the power analyses below use
+fifty trials per condition. Stand and Walk refer to requested mental tasks,
+not actual movements.
 
 Eight channels (FC3, FC4, C3, C4, Cz, CP3, CP4, CPz) were recorded at 256 Hz.
 Each trial included 3 s fixation, a 2 s condition-specific visual cue, and
@@ -12,86 +15,91 @@ a 5 s task. Raw EEG and participant identifiers are not distributed.
 
 ## 1. Three Binary Classifiers
 
-The same fixed **Filterbank CNN** is trained separately for **Rest-Stand,
-Rest-Walk, and Stand-Walk**, within each participant. The model combines
-filterbank and magnitude-spectrogram features through three CNN branches;
-each classifier has two output classes.
+**Rest-Stand, Rest-Walk, and Stand-Walk** are evaluated within each participant
+using **nested cross-validation**. An outer five-fold split estimates accuracy;
+an inner four-fold split selects a pipeline using the outer training data only.
+The selected pipeline is fitted on that outer training set and predicts its
+held-out fold. This is a pipeline-selection procedure, not one fixed CNN.
 
 ### Participant-Level Accuracy
 
-Each cell lists accuracy (%) for **training seeds 42 / 43 / 44**. All three
-seeds use the same train/validation/test split: **60 / 20 / 20 original trials**
-per comparison, with equal class counts. Test accuracy changes by five
-percentage points per trial. All seeds are shown; no best seed is selected.
+Each cell is the mean accuracy (%) across that participant's five outer folds.
+The table is recalculated from the saved `kind=nested` scores, **not from a new
+execution of the full model search**. All ten participants and all three
+binary comparisons are included.
 
 | Participant | Rest-Stand | Rest-Walk | Stand-Walk |
 |---|---:|---:|---:|
-| S01 | 40 / 75 / 50 | 45 / 45 / 45 | 55 / 50 / 55 |
-| S02 | 50 / 55 / 30 | 50 / 50 / 60 | 50 / 50 / 50 |
-| S03 | 90 / 90 / 85 | 75 / 75 / 70 | 50 / 50 / 40 |
-| S04 | 85 / 90 / 55 | 75 / 75 / 75 | 50 / 45 / 65 |
-| S05 | 45 / 55 / 55 | 50 / 55 / 60 | 50 / 55 / 45 |
-| S06 | 80 / 85 / 85 | 85 / 80 / 80 | 65 / 65 / 65 |
-| S07 | 50 / 50 / 35 | 60 / 60 / 50 | 50 / 50 / 55 |
-| S08 | 50 / 50 / 65 | 75 / 50 / 55 | 45 / 65 / 50 |
-| S09 | 65 / 55 / 60 | 60 / 60 / 60 | 70 / 65 / 75 |
-| S10 | 50 / 50 / 55 | 50 / 55 / 50 | 55 / 55 / 55 |
+| S01 | 54.7 | 41.9 | 44.4 |
+| S02 | 48.0 | 62.0 | 49.0 |
+| S03 | 72.7 | 76.4 | 52.6 |
+| S04 | 64.7 | 56.4 | 47.0 |
+| S05 | 63.6 | 65.8 | 56.0 |
+| S06 | 88.0 | 76.0 | 70.0 |
+| S07 | 58.0 | 74.0 | 43.0 |
+| S08 | 82.0 | 62.0 | 55.0 |
+| S09 | 64.0 | 63.0 | 57.0 |
+| S10 | 62.0 | 67.0 | 57.0 |
 
-![Binary classification accuracy for all ten participants and three training seeds](results/classification/seed_sensitivity.png)
+Group summaries first average the outer-fold accuracies within each person,
+then average the ten participant scores. They are not pooled counts of
+correct predictions over all trials.
 
-Rest-versus-imagery prediction was more successful for some participants:
-S03 reached **85-90%** for Rest-Stand and **70-75%** for Rest-Walk; S06 reached
-**80-85%** for both comparisons. These are illustrative individual results,
-not a cohort-wide accuracy. Other participants had lower scores or substantial
-seed sensitivity. Stand-Walk scores were also variable: for example, S09
-reached **65-75%**, while several participants remained near 50%.
+| Contrast | Mean accuracy | Participant-level 95% t interval | Chance |
+|---|---:|---:|---:|
+| Rest-Stand | 65.8% | 57.1-74.5% | 50% |
+| Rest-Walk | 64.5% | 57.1-71.9% | 50% |
+| Stand-Walk | 53.1% | 47.5-58.7% | 50% |
 
-[All 90 scores and correct counts](results/classification/participant_scores.csv)
-| [Participant summaries](results/classification/participant_summary.csv)
-| [Ten-participant summaries by seed](results/classification/group_summary.csv)
+Rest-versus-imagery prediction is stronger at group level in this evaluation;
+Stand-Walk prediction is weaker, with participant variation. This does not
+establish equivalence to chance or an upper limit for other models. The
+intervals summarize variation across ten participant scores and do not
+account for analysis choices made on these recordings.
+
+[All thirty binary participant scores](results/classification/nested_participant_scores.csv)
+| [Three binary group summaries](results/classification/nested_group_summary.csv)
 
 ### Evaluation and Scope
 
-Inputs cover task **0-5 s inclusive** (1,281 samples), following continuous
-1-40 Hz filtering, a 60 Hz notch, and task-onset sample subtraction.
-Five fixed filterbank bands and a magnitude STFT feed the model. There is
-no per-trial T/CT/C input normalization or learned CSP filter in this profile.
+Inputs cover task **0.5-4.5 s** with the recorded reference (`ref=none`, no CAR).
+The plain input is 8-30 Hz; filterbank candidates use the fixed subbands
+documented in the source. The six candidates combine CSP, covariance/tangent-
+space features, time-delay covariance, and their respective classifiers.
 
-The fixed setting uses dropout 0.3, AdamW learning rate 0.001, weight decay
-0.0001, batch size 32, and validation-loss early stopping. Weights are selected
-using **validation data**, saved, and then frozen for test prediction.
-**Test answers are not used for fitting, checkpoint selection, or seed selection.**
+In the nested pipeline code, inner model selection and learned pipeline
+transforms use training folds only; outer test labels are used for stratified
+assignment and final scoring. This is distinct from fitting filters using
+test answers. However, the original label-free epoch rejection uses participant-
+wide signal statistics before CV, and preprocessing/model choices were
+developed on the same recordings. Nested pipeline selection does **not** make
+the entire study an independent or fully prospective validation. This
+report's evaluation profile was chosen after inspecting existing results.
 
-These are exploratory results from the same recordings, with the model profile
-highlighted after broader model comparisons. Repeating training seeds does not
-add test trials or independent sessions. The results do not establish
-new-person, new-day, or online BCI performance. Accuracy alone does not identify
-the physiological source of the predictive signal.
+These are exploratory, within-recording estimates. They do not establish
+new-person, new-day, online BCI performance, or a motor-imagery-specific source.
 
-[Model and runner](code/classification/)
-| [Detailed methods and input contract](results/classification/METHODS.md)
-| [Code and result verification](results/classification/VERIFICATION.md)
+[Nested evaluation code](code/02_final_eval.py)
+| [Pipeline definitions](code/decoders.py)
+| [Detailed methods and verification boundary](results/classification/METHODS.md)
+| [Saved-score summary and tests](code/classification/)
 
-With authorized matching preprocessed trial arrays, run from the repository
-root in an isolated Python 3.12 environment:
+The published numbers can be checked without loading EEG or fitting a model:
 
 ```bash
-python -m pip install -r code/classification/requirements.txt
 python -m unittest discover -s code/classification -p 'test_*.py'
-python code/classification/run.py \
-  --data /authorized/path/to/preprocessed_trials \
-  --out cache/filterbank_new_run --device mps
+python code/classification/summarize_nested.py \
+  --scores results/final_scores.csv --out cache/nested_score_audit
 ```
 
-The runner begins at the documented preprocessed-input boundary. Raw-data
-extraction, private trial mappings, cached EEG, weights, and trial-level
-predictions are not distributed. Exact cross-platform scores are not guaranteed.
-The model was supplied with the project; Codex assisted adaptation, execution,
-checking, and documentation.
+The summary requires NumPy and SciPy; its inputs are public aggregate scores.
+It does not rerun the original preprocessing, nested fitting, or predictions.
+Full signal-level reproduction requires authorized recordings and matching
+software. Raw EEG, private mappings, and cached trial inputs are not distributed.
 
 ## 2. EEG Power Differences and Feature Diagnostics
 
-The Filterbank CNN asks whether labels can be predicted. This second topic
+The primary nested evaluation asks whether labels can be predicted. This second topic
 examines **how recorded power changes within and between conditions**, then
 uses separate fixed linear classifiers to characterize condition information
 across **time, frequency bands, and channel patterns**. The dB measurements
@@ -164,16 +172,16 @@ confirmatory significance tests.
 ### Time, Frequency Band, and Spatial Pattern
 
 These auxiliary analyses ask **where condition information appears in the
-recorded features**. They are not an explanation of the CNN's internal
-decisions or replacement estimates of its accuracy. All values below are
+recorded features**. They are not an explanation of the selected pipelines'
+decisions or replacement estimates of their accuracy. All values below are
 **mean balanced accuracy (%) across ten participants**, with 50% as the
 chance reference. Balanced accuracy averages recall for the two labels.
 
 Each probe uses a fixed logistic regression with C=0.3. Feature standardization
 and classifier fitting occur only within the training fold. The probes use
-their own cross-validation folds across retained trials, **not the CNN's
-fixed twenty-trial test set**, and are not independent confirmation of its
-scores. The values are taken from the saved aggregate tables linked below.
+their own cross-validation folds and retained trial sets, **not the outer-fold
+predictions of the primary nested evaluation**, and are not independent
+confirmation of its scores. The values are taken from saved aggregate tables.
 
 #### Time: When Is Condition Information Present?
 
@@ -235,7 +243,7 @@ Fixed, class-balanced logistic probes use five repetitions of stratified
 five-fold cross-validation. **Pooled imagery combines Stand and Walk into
 one label** (100 imagery trials versus 50 Rest trials). It is an auxiliary
 binary contrast for feature characterization, not one of the three primary
-Filterbank comparisons.
+comparisons.
 
 | Feature set | Rest vs pooled imagery | Stand-Walk |
 |---|---:|---:|
@@ -248,9 +256,10 @@ Rest versus pooled imagery in this evaluation. Stand-Walk group means remain
 close to 50% for all three feature sets; this is not proof of equivalence to chance
 or an upper limit on another model. The feature sets are related transformations
 of the same powers, not independent physiological sources. Neither this
-decomposition nor the band probes identify which features the CNN used.
+decomposition nor the band probes identify which features the selected primary
+pipelines relied on to make a particular prediction.
 Different windows, power estimates, and validation folds also prevent a direct
-ranking of these scores against the time/band probes or the CNN.
+ranking of these scores against the time/band probes or primary nested estimates.
 
 [Feature-decomposition group scores](results/reanalysis/physiology_pattern_group.csv)
 | [Participant scores](results/reanalysis/physiology_pattern_participant.csv)
@@ -277,9 +286,9 @@ because of its frequency. Condition-specific cues, attention, eye or muscle
 activity, and imagery performance cannot be separated without the missing
 EOG, EMG, gaze, and trial-level compliance measurements.
 
-The dB summaries use task 1-5 s and all retained condition trials; the CNN uses
-task 0-5 s and a held-out classification split. The linear probes use separately
-specified windows and cross-validation folds. The power summaries and probes
-describe differences and predictive features in the recordings; they do **not**
-establish which features the CNN used or why a particular participant was
-classified well.
+The dB summaries use task 1-5 s and fifty trials per condition; the primary
+nested evaluation uses task 0.5-4.5 s and its own epoch selection and folds.
+The linear probes use separately specified windows and folds. Power summaries
+and probes describe differences and predictive features in the recordings;
+they do **not** establish why a selected primary pipeline classified a
+particular participant well.
