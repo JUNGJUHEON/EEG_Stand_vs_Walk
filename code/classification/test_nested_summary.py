@@ -41,7 +41,9 @@ class NestedSummaryTests(unittest.TestCase):
     def test_both_readme_tables_match(self):
         readme = (ROOT / "README.md").read_text()
         self.assertIn(participant_table(self.records), readme)
-        self.assertIn(group_table(summarize(self.records)), readme)
+        rendered_group = group_table(summarize(self.records))
+        self.assertIn(rendered_group, readme)
+        self.assertNotIn("Chance", rendered_group)
 
     def test_nested_source_uses_training_fold_for_choice_and_fit(self):
         module = ast.parse((ROOT / "code/02_final_eval.py").read_text())

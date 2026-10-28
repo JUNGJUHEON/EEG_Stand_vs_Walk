@@ -48,10 +48,10 @@
     "eeg_power_differences_and_feature_diagnostics"
   ],
   "public_file_sha256": {
-    "README.md": "29741cecfcf030933ccf1b79a3337bb25e3c6d55fbc460d98640d4d1fcb94ae5",
+    "README.md": "ac9864c6758ea3eaf1c2ed4ea624e0ffde40754b4d991d629f8d3554e9bac445",
     ".gitignore": "d7cd4f555d7de78ac077566f350ea1ad6cd2667f808caab16e434e044b41a77b",
-    "code/classification/summarize_nested.py": "f1e8d1a707c295c383737190712462cf986b851aa19cba645680bc39d5981f00",
-    "code/classification/test_nested_summary.py": "f0261f4f871545807360d95b73a6cffd05433be9bf034df58f60b3ea60ed8a34",
+    "code/classification/summarize_nested.py": "aaa431697d3ce19552ba92a6ff628d0bc893214ed1a5e50f9d4c4803136cb768",
+    "code/classification/test_nested_summary.py": "94a7467c9bb5d8db452baca251b7adca1b968013490a6a9b53ff24e9909ecff2",
     "results/classification/METHODS.md": "e03848a5ca390c92e3f1f26a26aa5af10228d7a6cde10b88dd45ca74b628ebc3",
     "results/classification/nested_participant_scores.csv": "37a439f1f076c7d78d661c71c501a9bbf551c7a4cc1a55b9103b889926c34dd5",
     "results/classification/nested_group_summary.csv": "1845ed84c77097e1f0b1471edeb242de23b5133e9214b8cd87dcea803327e4e0",
@@ -87,5 +87,6 @@
     "No matched superiority comparison to previous fixed CNN split",
     "No motor-imagery-specific cortical source or new-person/session validation"
   ],
-  "omitted": "Raw EEG, private mappings, raw input hashes, cached trial inputs, and trial-level predictions"
+  "omitted": "Raw EEG, private mappings, raw input hashes, cached trial inputs, and trial-level predictions",
+  "documentation_updated_on": "2026-10-28"
 }

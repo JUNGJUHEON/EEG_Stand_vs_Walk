@@ -64,11 +64,11 @@ def participant_table(records):
 
 
 def group_table(rows):
-    lines = ["| Contrast | Mean accuracy | Participant-level 95% t interval | Chance |",
-             "|---|---:|---:|---:|"]
+    lines = ["| Contrast | Mean accuracy | Participant-level 95% t interval |",
+             "|---|---:|---:|"]
     for r in rows:
         lines.append(f"| {r['contrast']} | {100*r['mean_accuracy']:.1f}% | "
-                     f"{100*r['t_ci95_low']:.1f}-{100*r['t_ci95_high']:.1f}% | 50% |")
+                     f"{100*r['t_ci95_low']:.1f}-{100*r['t_ci95_high']:.1f}% |")
     return "\n".join(lines)
 
 

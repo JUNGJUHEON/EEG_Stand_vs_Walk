@@ -45,11 +45,11 @@ Group summaries first average the outer-fold accuracies within each person,
 then average the ten participant scores. They are not pooled counts of
 correct predictions over all trials.
 
-| Contrast | Mean accuracy | Participant-level 95% t interval | Chance |
-|---|---:|---:|---:|
-| Rest-Stand | 65.8% | 57.1-74.5% | 50% |
-| Rest-Walk | 64.5% | 57.1-71.9% | 50% |
-| Stand-Walk | 53.1% | 47.5-58.7% | 50% |
+| Contrast | Mean accuracy | Participant-level 95% t interval |
+|---|---:|---:|
+| Rest-Stand | 65.8% | 57.1-74.5% |
+| Rest-Walk | 64.5% | 57.1-71.9% |
+| Stand-Walk | 53.1% | 47.5-58.7% |
 
 Rest-versus-imagery prediction is stronger at group level in this evaluation;
 Stand-Walk prediction is weaker, with participant variation. This does not
