@@ -38,11 +38,11 @@ class NestedSummaryTests(unittest.TestCase):
             for key in ("mean_accuracy", "sd_between_participants", "t_ci95_low", "t_ci95_high"):
                 self.assertAlmostEqual(row[key], float(source[key]), places=13)
 
-    def test_both_readme_tables_match(self):
-        readme = (ROOT / "README.md").read_text()
-        self.assertIn(participant_table(self.records), readme)
+    def test_historical_tables_match(self):
+        methods = (ROOT / "results/classification/METHODS.md").read_text()
+        self.assertIn(participant_table(self.records), methods)
         rendered_group = group_table(summarize(self.records))
-        self.assertIn(rendered_group, readme)
+        self.assertIn(rendered_group, methods)
         self.assertNotIn("Chance", rendered_group)
 
     def test_nested_source_uses_training_fold_for_choice_and_fit(self):

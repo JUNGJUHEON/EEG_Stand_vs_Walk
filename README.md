@@ -16,86 +16,69 @@ a 5 s task. Raw EEG and participant identifiers are not distributed.
 ## 1. Three Binary Classifiers
 
 **Rest-Stand, Rest-Walk, and Stand-Walk** are evaluated within each participant
-using **nested cross-validation**. An outer five-fold split estimates accuracy;
-an inner four-fold split selects a pipeline using the outer training data only.
-The selected pipeline is fitted on that outer training set and predicts its
-held-out fold. This is a pipeline-selection procedure, not one fixed CNN.
+using **nested cross-validation**. The default evaluation compares two
+pipelines on four inner folds, chooses by mean validation accuracy, then
+refits the chosen pipeline and scores it on the held-out outer fold.
+Each participant has five outer folds.
 
-### Participant-Level Accuracy
+- `fb_ts_lr` uses filter-bank covariance and tangent-space features with
+  logistic regression.
+- `fbcsp_mibif_lda` uses per-band CSP, mutual-information feature selection,
+  and linear discriminant analysis.
 
-Each cell is the mean accuracy (%) across that participant's five outer folds.
-The table is recalculated from the saved `kind=nested` scores, **not from a new
-execution of the full model search**. All ten participants and all three
-binary comparisons are included.
+### Held-out performance
 
-| Participant | Rest-Stand | Rest-Walk | Stand-Walk |
-|---|---:|---:|---:|
-| S01 | 54.7 | 41.9 | 44.4 |
-| S02 | 48.0 | 62.0 | 49.0 |
-| S03 | 72.7 | 76.4 | 52.6 |
-| S04 | 64.7 | 56.4 | 47.0 |
-| S05 | 63.6 | 65.8 | 56.0 |
-| S06 | 88.0 | 76.0 | 70.0 |
-| S07 | 58.0 | 74.0 | 43.0 |
-| S08 | 82.0 | 62.0 | 55.0 |
-| S09 | 64.0 | 63.0 | 57.0 |
-| S10 | 62.0 | 67.0 | 57.0 |
+Each metric is calculated per outer fold, averaged within each participant,
+then averaged across ten participants. PR-AUC and AP give equal weight to the
+two classes. Recall reports the percentage of each true condition recovered.
 
-Group summaries first average the outer-fold accuracies within each person,
-then average the ten participant scores. They are not pooled counts of
-correct predictions over all trials.
+| Contrast | Accuracy | Balanced accuracy | ROC-AUC | Macro PR-AUC | Macro AP | Recall by class |
+|---|---:|---:|---:|---:|---:|---|
+| Rest-Stand | 67.2% | 67.3% | 0.727 | 0.731 | 0.752 | Rest 67.6%, Stand 66.9% |
+| Rest-Walk | 65.3% | 65.3% | 0.704 | 0.715 | 0.736 | Rest 64.5%, Walk 66.1% |
+| Stand-Walk | 54.8% | 54.8% | 0.563 | 0.591 | 0.622 | Stand 55.9%, Walk 53.7% |
 
-| Contrast | Mean accuracy | Participant-level 95% t interval |
-|---|---:|---:|
-| Rest-Stand | 65.8% | 57.1-74.5% |
-| Rest-Walk | 64.5% | 57.1-71.9% |
-| Stand-Walk | 53.1% | 47.5-58.7% |
+Rest-versus-imagery comparisons had higher mean accuracy and ranking scores
+than Stand-Walk. The Stand-Walk result shows limited single-trial separation
+in these recordings.
 
-Rest-versus-imagery prediction is stronger at group level in this evaluation;
-Stand-Walk prediction is weaker, with participant variation. This does not
-establish equivalence to chance or an upper limit for other models. The
-intervals summarize variation across ten participant scores and do not
-account for analysis choices made on these recordings.
+### Why two candidates?
 
-[All thirty binary participant scores](results/classification/nested_participant_scores.csv)
-| [Three binary group summaries](results/classification/nested_group_summary.csv)
+The two-candidate shortlist was defined in the preceding analysis.
+We evaluated it alongside the six-candidate pool, six fixed models, and all
+six single-candidate removals on the same 150 outer folds. Compared with the
+six-candidate pool, the two-candidate pool had slightly higher group accuracy,
+balanced accuracy, ROC-AUC, macro PR-AUC, macro AP, macro-F1, and MCC in all
+three contrasts. Participant-level trade-offs remain visible. For example,
+Rest-Walk macro AP improved for three participants, tied for one, and
+fell for six. The fixed time-delay model also had a higher mean Rest-Walk
+ROC-AUC than the two-candidate selector (0.725 versus 0.704).
 
-### Evaluation and Scope
+[Per-fold metrics and confusion counts](results/classification/binary_fold_metrics.csv)
+| [Participant metrics](results/classification/binary_participant_metrics.csv)
+| [Group metrics for all 14 strategies](results/classification/binary_group_metrics.csv)
+| [Detailed comparison and methods](results/classification/METHODS.md)
 
-Inputs cover task **0.5-4.5 s** with the recorded reference (`ref=none`, no CAR).
-The plain input is 8-30 Hz; filterbank candidates use the fixed subbands
-documented in the source. The six candidates combine CSP, covariance/tangent-
-space features, time-delay covariance, and their respective classifiers.
+### Evaluation scope
 
-In the nested pipeline code, inner model selection and learned pipeline
-transforms use training folds only; outer test labels are used for stratified
-assignment and final scoring. This is distinct from fitting filters using
-test answers. However, the original label-free epoch rejection uses participant-
-wide signal statistics before CV, and preprocessing/model choices were
-developed on the same recordings. Nested pipeline selection does **not** make
-the entire study an independent or fully prospective validation. This
-report's evaluation profile was chosen after inspecting existing results.
+Inputs cover task **0.5-4.5 s** with the recorded reference. All learned
+transforms and model selection use the training side of each split. The
+original label-free epoch rejection uses participant-wide signal statistics
+before CV. The preprocessing and candidate pool were developed on these same
+recordings, so the scores describe exploratory, within-recording prediction.
+New-person, new-day, and online performance require separate evaluation.
 
-These are exploratory, within-recording estimates. They do not establish
-new-person, new-day, online BCI performance, or a motor-imagery-specific source.
-
-[Nested evaluation code](code/02_final_eval.py)
+[Binary evaluation code](code/classification/evaluate_binary.py)
 | [Pipeline definitions](code/decoders.py)
-| [Detailed methods and verification boundary](results/classification/METHODS.md)
-| [Saved-score summary and tests](code/classification/)
 
-The published numbers can be checked without loading EEG or fitting a model:
+With authorized recordings, run the default two-candidate evaluation with:
 
 ```bash
-python -m unittest discover -s code/classification -p 'test_*.py'
-python code/classification/summarize_nested.py \
-  --scores results/final_scores.csv --out cache/nested_score_audit
+python code/classification/evaluate_binary.py \
+  --data /path/to/authorized-recordings --out cache/binary_evaluation
 ```
 
-The summary requires NumPy and SciPy; its inputs are public aggregate scores.
-It does not rerun the original preprocessing, nested fitting, or predictions.
-Full signal-level reproduction requires authorized recordings and matching
-software. Raw EEG, private mappings, and cached trial inputs are not distributed.
+Add `--full-comparison` for the six-candidate comparison and ablations.
 
 ## 2. EEG Power Differences and Feature Diagnostics
 
