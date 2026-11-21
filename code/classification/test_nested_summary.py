@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from summarize_nested import group_table, participant_table, read_scores, summarize
+from summarize_nested import read_scores, summarize
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -38,12 +38,14 @@ class NestedSummaryTests(unittest.TestCase):
             for key in ("mean_accuracy", "sd_between_participants", "t_ci95_low", "t_ci95_high"):
                 self.assertAlmostEqual(row[key], float(source[key]), places=13)
 
-    def test_historical_tables_match(self):
-        methods = (ROOT / "results/classification/METHODS.md").read_text()
-        self.assertIn(participant_table(self.records), methods)
-        rendered_group = group_table(summarize(self.records))
-        self.assertIn(rendered_group, methods)
-        self.assertNotIn("Chance", rendered_group)
+    def test_saved_group_export(self):
+        with (ROOT / "results/classification/nested_group_summary.csv").open(newline="") as stream:
+            published = list(csv.DictReader(stream))
+        expected = summarize(self.records)
+        self.assertEqual(len(published), len(expected))
+        for source, output in zip(expected, published):
+            for name, value in source.items():
+                self.assertEqual(str(value), output[name])
 
     def test_nested_source_uses_training_fold_for_choice_and_fit(self):
         module = ast.parse((ROOT / "code/02_final_eval.py").read_text())

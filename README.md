@@ -15,16 +15,32 @@ a 5 s task. Raw EEG and participant identifiers are not distributed.
 
 ## 1. Three Binary Classifiers
 
-**Rest-Stand, Rest-Walk, and Stand-Walk** are evaluated within each participant
-using **nested cross-validation**. The default evaluation compares two
-pipelines on four inner folds, chooses by mean validation accuracy, then
-refits the chosen pipeline and scores it on the held-out outer fold.
-Each participant has five outer folds.
+We evaluate **Rest-Stand, Rest-Walk, and Stand-Walk** within each participant
+using two models that represent the same EEG trial in different ways.
+Both use the eight recorded channels from **0.5–4.5 s after task onset** and
+estimate an 8 × 8 channel covariance matrix in each of eight frequency bands.
+Each prediction assigns one of the two condition labels to a single trial.
 
-- `fb_ts_lr` uses filter-bank covariance and tangent-space features with
-  logistic regression.
-- `fbcsp_mibif_lda` uses per-band CSP, mutual-information feature selection,
-  and linear discriminant analysis.
+### What each model captures
+
+- **`fb_ts_lr` uses how individual channels vary and how pairs of channels
+  vary together within each band.** For each band, the model expresses the
+  trial's covariance relative to a reference estimated from the training
+  trials. That tangent-space transformation gives 36 features per band.
+  Logistic regression combines the 288 standardized features across bands.
+- **`fbcsp_mibif_lda` uses the variance of channel combinations that help
+  distinguish the conditions.** Common spatial patterns (CSP) learns four
+  weighted combinations of channels in each band from the training labels.
+  The model computes the log variance for each combination, ranks the 32
+  features by mutual information with the training labels, and uses the
+  top eight for linear discriminant analysis.
+
+### How the models are evaluated
+
+For each of five outer folds, we compare the two models on four inner
+validation folds and choose the one with higher mean validation accuracy.
+We then refit it on the outer training set and score its predictions on
+the held-out trials.
 
 ### Held-out performance
 
@@ -42,43 +58,29 @@ Rest-versus-imagery comparisons had higher mean accuracy and ranking scores
 than Stand-Walk. The Stand-Walk result shows limited single-trial separation
 in these recordings.
 
-### Why two candidates?
-
-The two-candidate shortlist was defined in the preceding analysis.
-We evaluated it alongside the six-candidate pool, six fixed models, and all
-six single-candidate removals on the same 150 outer folds. Compared with the
-six-candidate pool, the two-candidate pool had slightly higher group accuracy,
-balanced accuracy, ROC-AUC, macro PR-AUC, macro AP, macro-F1, and MCC in all
-three contrasts. Participant-level trade-offs remain visible. For example,
-Rest-Walk macro AP improved for three participants, tied for one, and
-fell for six. The fixed time-delay model also had a higher mean Rest-Walk
-ROC-AUC than the two-candidate selector (0.725 versus 0.704).
-
-[Per-fold metrics and confusion counts](results/classification/binary_fold_metrics.csv)
-| [Participant metrics](results/classification/binary_participant_metrics.csv)
-| [Group metrics for all 14 strategies](results/classification/binary_group_metrics.csv)
-| [Detailed comparison and methods](results/classification/METHODS.md)
+[Per-fold metrics and confusion counts](results/classification/two_model/binary_fold_metrics.csv)
+| [Participant metrics](results/classification/two_model/binary_participant_metrics.csv)
+| [Group metrics](results/classification/two_model/binary_group_metrics.csv)
+| [Detailed methods](results/classification/METHODS.md)
 
 ### Evaluation scope
 
-Inputs cover task **0.5-4.5 s** with the recorded reference. All learned
-transforms and model selection use the training side of each split. The
-original label-free epoch rejection uses participant-wide signal statistics
-before CV. The preprocessing and candidate pool were developed on these same
-recordings, so the scores describe exploratory, within-recording prediction.
+Input signals use the recorded reference. All learned transforms and model
+selection use the training side of each split. Label-free epoch rejection
+uses participant-wide signal statistics before cross-validation. The same
+recordings informed the analysis choices, so the scores describe exploratory,
+within-recording prediction.
 New-person, new-day, and online performance require separate evaluation.
 
 [Binary evaluation code](code/classification/evaluate_binary.py)
 | [Pipeline definitions](code/decoders.py)
 
-With authorized recordings, run the default two-candidate evaluation with:
+Run the two-model evaluation with authorized recordings.
 
 ```bash
 python code/classification/evaluate_binary.py \
   --data /path/to/authorized-recordings --out cache/binary_evaluation
 ```
-
-Add `--full-comparison` for the six-candidate comparison and ablations.
 
 ## 2. EEG Power Differences and Feature Diagnostics
 
